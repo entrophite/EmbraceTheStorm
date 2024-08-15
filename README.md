@@ -4,7 +4,7 @@ These are my note for statically injected code to alter the gameplay of *Against
 
 <b><span style="color:#60ff60">VERSION: </span></b> 1.3@steam
 
-## 1. Environment/settlement-wise effects
+## 1. Environment/Glades/Settlement
 
 ### 1.1. Hostility
 
@@ -85,9 +85,71 @@ public bool IsMovingAllBuildingsEnabled()
 
 // Eremite.Services.ConstructionService.CanBeMoved
 // the function below is not changed; I haven't tested if setting this to true can be fun (e.g. enabling moving resource nodes and glade events); nor know if this causes bugs.
+public bool CanBeMoved(Building building)
+{
+	return (Serviceable.IsDebugMode && DebugModes.Construction) || (!building.IsMovingBlocked() && (this.CanMoveConstructionSite(building) || this.CanBeMoved(building.BuildingModel)));
+}
 public bool CanBeMoved(BuildingModel model)
 {
 	return (Serviceable.IsDebugMode && DebugModes.Construction) || (!Serviceable.EffectsService.IsMovingBuildingsBlocked() && ((Serviceable.EffectsService.IsMovingAllBuildingsEnabled() && model.movableWithEffects) || model.movable));
+}
+```
+
+### 1.4. Glade event working time
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying working time required for glade events, 0.2x (equivalent to 500% working speed) in the example below.
+
+```c#
+// Eremite.Services.EffectsService.GetRelicWorkingTime
+public float GetRelicWorkingTime(float baseTime, Relic relic)
+{
+	return baseTime * (1f / Mathf.Clamp(this.GetRelicsWorkingRate(relic), this.PerksConfig.minRelicsWorkingTimeRate, this.PerksConfig.maxRelicsWorkingTimeRate)) * 0.2f;
+}
+```
+
+### 1.5. House capacity
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying capacity for each house, 2x in the example below. This capacity modifier scales after other in-game bonuses (e.g. acquiring an effect of +1 bonus will have an effect +2 capacity after scaling).
+
+```c#
+// Eremite.Services.EffectsService.GetHouseCapacity
+// this function overload works at per-house basis, e.g. taking care of haunted houses
+public int GetHouseCapacity(House house)
+{
+	return Mathf.Clamp(house.model.housingPlaces + house.state.bonusCapacity + this.Effects.globalHousesBonusCapacity + this.Effects.housesBonusCapacity.GetSafe(house.ModelName), this.PerksConfig.minHousesSlots, this.PerksConfig.maxHousesSlots) * 2;
+}
+
+// Eremite.Services.EffectsService.GetHouseCapacity
+// this function overload works at house prototype basis, e.g. taking care of preview and encycropedia
+public int GetHouseCapacity(HouseModel house)
+{
+	return Mathf.Clamp(house.housingPlaces + this.Effects.globalHousesBonusCapacity + this.Effects.housesBonusCapacity.GetSafe(house.Name), this.PerksConfig.minHousesSlots, this.PerksConfig.maxHousesSlots) * 2;
+}
+```
+
+### 1.6. Goods' selling price to trader
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying sell price of goods to traders to greatly enhances trading experience, 10x worth of value in the example below.
+
+```c#
+// Eremite.Services.TradeService.GetValueInCurrency
+public float GetValueInCurrency(string name, int amount)
+{
+	return this.RoundTradeValue(Serviceable.EffectsService.GetTraderSellPriceFor(name) / this.GetTradeCurrencyValue() * 10f, amount);
+}
+```
+
+### 1.7. Trade route profit
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying sell price of goods to traders to greatly enhances trading experience, 10x worth of value in the example below.
+
+```c#
+// Eremite.Services.TradeService.GetValueInCurrency
+private int GetPriceFor(float goodTradeValue, TradeTownState town)
+{
+	float num = goodTradeValue / Serviceable.TradeService.GetTradeCurrencyValue();
+	num *= 1f + (float)town.standingLevel * this.Config.basePricePerStandingFactor;
+	return Mathf.Max(1, Mathf.RoundToInt(num * this.Config.basePriceFactor * this.factorsCache[this.PriceFactorIndex])) * 10;
 }
 ```
 
