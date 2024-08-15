@@ -1,6 +1,6 @@
 # EmbraceTheStorm
 
-These are my note for statically injected code to alter the gameplay of *Against the Storm*, in preparation for future version updates.
+These are my note for statically injected code to alter the gameplay of *Against the Storm*, in purpose for reinjecting these codes after future version updates.
 
 <b><span style="color:#60ff60">VERSION: </span></b> 1.3@steam
 
@@ -8,7 +8,7 @@ These are my note for statically injected code to alter the gameplay of *Against
 
 ### 1.1. Hostility
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Making the hostility bar longer so it typically cannot ever reach to level higher than 0, while still allowing checking the current level of hostility. Done by changing the points of each hostility level. Code below can still track the total points of hostility (through the max hostility level) in the original gameplay, e.g. a 3100 bar means the original gameplay has hostility level capped at 31.
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the hostility bar size while keeping tracking the total gained hostility points. The example belows sets the hostility points per level to the total number of points from original level 0 through the level max (e.g. 3100 per level instead of 100, as the max level under Prestige 20 is 31). This value can change per difficulty, since different max hostility levels are used by the game.
 
 ```c#
 // Eremite.Services.HostilityService.GetPointsForNextLevel
@@ -84,7 +84,7 @@ public bool IsMovingAllBuildingsEnabled()
 }
 
 // Eremite.Services.ConstructionService.CanBeMoved
-// the function below is not changed; I haven't tested if setting this to true can be fun (e.g. enabling moving resource nodes and glade events); nor know if this can cause bugs.
+// the function below is not changed; I haven't tested if setting this to true can be fun (e.g. enabling moving resource nodes and glade events); nor know if this causes bugs.
 public bool CanBeMoved(BuildingModel model)
 {
 	return (Serviceable.IsDebugMode && DebugModes.Construction) || (!Serviceable.EffectsService.IsMovingBuildingsBlocked() && ((Serviceable.EffectsService.IsMovingAllBuildingsEnabled() && model.movableWithEffects) || model.movable));
@@ -179,7 +179,7 @@ public int GetVillagerCapacity(Villager villager)
 
 ### 4.1. Unlock all blueprints proposed
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Unlocks all blueprints proposed in each draft. Only children make choices, adults want them all!
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Unlocking all blueprints proposed in each draft. Only children make choices, adults want them all!
 
 ```c#
 // Eremite.Services.ReputationRewardsService.RewardPicked
@@ -210,11 +210,16 @@ private void SendPickAnalytics(BuildingModel building)
 }
 ```
 
+### 4.2. Multiple cornerstone pick
+
+<b><span style="color:#ffff40">IN-DEVELOPMENT: </span></b> Allowing multiple picks of cornerstones among proposed choices per draft. Since some cornerstones has side effects and is not guaranteed to grant advantage in every playthrough, it is not ideal to unlock them unconditionally like blueprints. The goal is to allow multiple picks, however this is significantly more difficult to implement and is still in development.
+
+
 ## 5. Meta progression
 
 ### 5.1. Unlock all proposed non-core citadal upgrades in Queen's Hand Trial mode
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Unlocks all non-core citadel upgrades proposed in each draft. Only children make choices, adults want them all!
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Unlocks all non-core citadel upgrades proposed in each draft. Why I have to give up *Beaver House* to obtain *Field Kitchen*?. Only children make choices, adults want them all!
 
 ```c#
 // Eremite.Services.IronmanService.Pick
@@ -237,5 +242,23 @@ public void Pick(CapitalUpgradeModel model)
 		this.SetNewPick();
 	}
 	this.CallEvents(model);
+}
+```
+
+## 6. Embarkation
+
+### 6.1. Always-unlocked blueprints
+
+<b><span style="color:#ffff40">IN-DEVELOPMENT: </span></b> Making some blueprints always unlocked for every game without being selected during embarkation preparation. The implementation is still in progress.
+
+### 6.2. More embarkation points
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying base embarkation points for every caravan, 200 in the below example. Note the diminishing returns with high values, as the total count of embarkation bonus to apply for a caravan is limited.
+
+```c#
+// Eremite.View.Menu.Pick.BuildingsPickScreen.GetBasePreparationPoints
+private int GetBasePreparationPoints()
+{
+	return Mathf.Max(0, MB.MetaPerksService.GetBasePreparationPoints() + WorldMB.WorldMapService.GetMinDifficultyFor(this.field).preparationPointsPenalty) + 200;
 }
 ```
