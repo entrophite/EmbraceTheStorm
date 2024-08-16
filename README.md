@@ -8,7 +8,7 @@ These are my note for statically injected code to alter the gameplay of *Against
 
 ### 1.1. Hostility
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the number of hostility points per level while still keep tracking the total hostility points gained. In the example below the number hostility points per level is set to the sum of points required to reach the maximum level in the original game. The size hence is scaled with difficulty, e.g. 3100 per level in Viceroy+ (since max level is 31) and 600 in Settler (max level is 6).
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the number of hostility points per level (the hostility progression bar "size" of each level) while still keep tracking the total hostility points gained. In the example below the bar size is set to the sum of points required to reach the maximum level in the original game. The bar size hence scales with difficulty, e.g. 3100 per level in Viceroy+ (since max level is 31) and 600 in Settler (max level is 6).
 
 ```c#
 // Eremite.Services.HostilityService.GetPointsForNextLevel
