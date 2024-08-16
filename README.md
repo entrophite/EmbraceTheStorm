@@ -8,7 +8,7 @@ These are my note for statically injected code to alter the gameplay of *Against
 
 ### 1.1. Hostility
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the hostility bar size while keeping tracking the total gained hostility points. The example belows sets the hostility points per level to the total number of points from original level 0 through the level max (e.g. 3100 per level instead of 100, as the max level under Prestige 20 is 31). This value can change per difficulty, since different max hostility levels are used by the game.
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the number of hostility points per level while still keep tracking the total hostility points gained. In the example below the number hostility points per level is set to the sum of points required to reach the maximum level in the original game. The size hence is scaled with difficulty, e.g. 3100 per level in Viceroy+ (since max level is 31) and 600 in Settler (max level is 6).
 
 ```c#
 // Eremite.Services.HostilityService.GetPointsForNextLevel
@@ -109,7 +109,7 @@ public float GetRelicWorkingTime(float baseTime, Relic relic)
 
 ### 1.5. House capacity
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying capacity for each house, 2x in the example below. This capacity modifier scales after other in-game bonuses (e.g. acquiring an effect of +1 bonus will have an effect +2 capacity after scaling).
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying capacity for each house, 2x in the example below. This capacity modifier scales other in-game bonuses as well, e.g. +1 bonus in game will have an final effect of +2 capacity under this modifier.
 
 ```c#
 // Eremite.Services.EffectsService.GetHouseCapacity
@@ -129,7 +129,7 @@ public int GetHouseCapacity(HouseModel house)
 
 ### 1.6. Goods' selling price to trader
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying sell price of goods to traders to greatly enhances trading experience, 10x worth of value in the example below.
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying sell price of goods to traders to greatly enhance trading experience, 10x worth of value in the example below.
 
 ```c#
 // Eremite.Services.TradeService.GetValueInCurrency
@@ -216,7 +216,7 @@ public int GetTankCapacity()
 }
 ```
 
-### 2.5. Default global product limit
+### 2.5. Default global production limit
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the global production limit, 150 in the example below. Manually setting everything is way too tideous.
 
@@ -232,9 +232,9 @@ public int GetGlobalLimitFor(string goodName)
 }
 ```
 
-### 2.6. Reduced global product limit for low-star recipes
+### 2.6. Reduced global production limit for low-star recipes
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Separating the production limit for low-star recipes when using global production limit values, 20% for 0-star recipes and 60% for 1-star recipes in the example below. Unlimited global limits, manually set limits and 2/3-star recipes are not affected. In addition, when the global limit is not unlimited, the reduced limit for low-star recipes cannot be less than 1 (since the game use the value 0 for unlimited production).
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Separating the production limit for low-star recipes when using global production limit values, 20% for 0-star recipes and 60% for 1-star recipes in the example below. Unlimited global limits, manually set limits and 2/3-star recipes are not affected. In addition, when the global limit of a product is active, the limit for corresponding low-star recipes cannot go below 1 (since the game use the value 0 for unlimited production).
 
 ```c#
 // Eremite.Buildings.Workshop.SetUp
