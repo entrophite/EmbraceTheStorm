@@ -216,6 +216,74 @@ public int GetTankCapacity()
 }
 ```
 
+### 2.5. Default global product limit
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the global production limit, 150 in the example below. Manually setting everything is way too tideous.
+
+```c#
+// Eremite.Services.WorkshopsService.GetGlobalLimitFor
+public int GetGlobalLimitFor(string goodName)
+{
+	if (!this.Limits.ContainsKey(goodName))
+	{
+		return 150;
+	}
+	return this.Limits[goodName];
+}
+```
+
+### 2.6. Reduced global product limit for low-star recipes
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Separating the production limit for low-star recipes when using global production limit values, 20% for 0-star recipes and 60% for 1-star recipes in the example below. Unlimited global limits, manually set limits and 2/3-star recipes are not affected. In addition, when the global limit is not unlimited, the reduced limit for low-star recipes cannot be less than 1 (since the game use the value 0 for unlimited production).
+
+```c#
+// Eremite.Buildings.Workshop.SetUp
+public void SetUp(WorkshopModel model, WorkshopState state)
+{
+	this.model = model;
+	this.state = state;
+	foreach (WorkshopRecipeState workshopRecipeState in state.recipes)
+	{
+		int globalLimit = GameMB.WorkshopsService.GetGlobalLimitFor(workshopRecipeState.productName);
+		if (!workshopRecipeState.isLimitLocal && globalLimit > 0)
+		{
+			int level = this.GetRecipeModel(workshopRecipeState).grade.level;
+			if (level == 0)
+			{
+				workshopRecipeState.limit = Math.Max(1, (int)((float)globalLimit * 0.2f));
+			}
+			else if (level == 1)
+			{
+				workshopRecipeState.limit = Math.Max(1, (int)((float)globalLimit * 0.6f));
+			}
+		}
+	}
+	this.ProductionStorage.SetUp(this, state.productionStorage, model.maxStorage);
+	this.ingredientsStorage.SetUp(this, state.ingredientsStorage, new Func<int, GoodRequest>(this.GetBestGoodToObtain));
+	this.blight.SetUp(this, state.blight);
+}
+
+// Eremite.Buildings.Workshop.ChangeLimitFor
+public void ChangeLimitFor(WorkshopRecipeState recipe, int amount, bool isLocalChange)
+{
+	if (!isLocalChange && amount > 0)
+	{
+		int level = this.GetRecipeModel(recipe).grade.level;
+		if (level == 0)
+		{
+			amount = Math.Max(1, (int)((float)amount * 0.2f));
+		}
+		else if (level == 1)
+		{
+			amount = Math.Max(1, (int)((float)amount * 0.6f));
+		}
+	}
+	recipe.limit = amount;
+	recipe.isLimitLocal = isLocalChange;
+}
+```
+
+
 
 ## 3. Logistics
 
