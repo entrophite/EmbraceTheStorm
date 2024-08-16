@@ -1,0 +1,164 @@
+Advanced Rain Catcher
+Aestherics 2x2 - Garden
+Alchemist Hut
+Altar
+Ancient Gravestone
+Anvil
+Apothecary
+Arch
+Archaeology Scorpion Positive
+Archaeology Snake Positive
+Archaeology Spider Positive
+Archeology office
+Artisan
+Bakery
+Bank
+Barrels
+Bath House
+Beanery
+Beaver House
+Big Shelter
+Blight Post
+Bonfire
+Brewery
+Brick Oven
+Brickyard
+Bush
+Butcher
+Cages
+Carpenter
+Cellar
+Chest
+Clan Hall
+Clay Pit Workshop
+Clothier
+Comfort 2x2 - Park
+Cookhouse
+Cooperage
+Coral Decor
+CornerFence
+Crates
+Crude Workstation
+Decay Altar Positive
+Distillery
+Druid
+Explorers Lodge
+Farmfield
+Fence
+Finesmith
+Fire Shrine
+Fishmen Lighthouse Positive
+Flawless Brewery
+Flawless Cellar
+Flawless Cooperage
+Flawless Druid
+Flawless Leatherworks
+Flawless Rain Mill
+Flawless Smelter
+Flower Bed
+Forager's Camp
+Forum
+Fountain
+Fox Fence
+Fox Fence Corner
+Fox House
+Furnace
+Gate
+Golden Leaf
+Granary
+Greenhouse Workshop
+Grill
+Grove
+Guild House
+Hallowed Herb Garden
+Hallowed SmallFarm
+Harmony Spirit Altar Positive
+Harpy House
+Harvester Camp
+Herb Garden
+Herbalist's Camp
+Holy Market
+Holy Temple
+Homestead
+Human House
+Hydrant
+Kiln
+Lamp
+Leatherworks
+Lizard House
+Lizard Post
+Lumbermill
+Main Storage (not-buildable)
+Makeshift Post
+Manufactory
+Market
+Mine
+Monastery
+Monolith Positive
+Mushroom Decor
+Nightfern
+Path
+Paved Road
+Pipe
+Pipe Cross
+Pipe Elbow
+Pipe End
+Pipe T Cross
+Pipe Valve
+Plantation
+Press
+Primitive Forager's Camp
+Primitive Herbalist's Camp
+Primitive Trapper's Camp
+Provisioner
+Purged Beaver House
+Purged Fox House
+Purged Harpy House
+Purged Human House
+Purged Lizard House
+Rain Catcher
+Rain Mill
+Rain Totem Positive
+Rainpunk Barrels
+Rainpunk Foundry
+Ranch
+Reinforced Road
+Road Sign
+Sacrifice Totem Positive
+Scarlet Decor
+Scribe
+Sealed Biome Shrine
+Shelter
+Signboard
+Small Hearth
+SmallFarm
+Smelter
+Smithy
+Smokehouse
+Stamping Mill
+Stonecutter's Camp
+Storage (buildable)
+Stormbird Positive
+Supplier
+Tavern
+Tea Doctor
+Tea House
+Temple
+Temporary Hearth (buildable)
+Termite Burrow Positive
+Tinctury
+Tinkerer
+Toolshop
+Tower
+Town Board
+Trading Post
+Trapper's Camp
+Umbrella
+Wall
+Wall Corner
+Water Barrels
+Water Extractor
+Weaver
+Well
+Woodcutters Camp
+Workshop

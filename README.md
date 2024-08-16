@@ -153,6 +153,17 @@ private int GetPriceFor(float goodTradeValue, TradeTownState town)
 }
 ```
 
+### 1.8. Construction speed
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying construction speed of buildings, 2x in the example below.
+
+```c#
+// Eremite.Services.EffectsService.GetConstructionRate
+public float GetConstructionRate()
+{
+	return Mathf.Clamp(this.Effects.constructionSpeed + this.MetaPerks.constructionSpeedBonusRate, this.PerksConfig.minConstructionSpeedRate, this.PerksConfig.maxConstructionSpeedRate) * 2f;
+}
+```
 
 ## 2. Production
 
@@ -379,7 +390,64 @@ public void Pick(CapitalUpgradeModel model)
 
 ### 6.1. Always-unlocked blueprints
 
-<b><span style="color:#ffff40">IN-DEVELOPMENT: </span></b> Making some blueprints always unlocked for every game without being selected during embarkation preparation. The implementation is still in progress.
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Making some blueprints unconditionally unlocked for every game. Multiple buildings are included in the example below. Name of buildings to add can be found in [buildings_list.txt](buildings_list.txt), note not all buildings from this list can be built in game.
+
+```c#
+// Eremite.Services.GameContentService.EnsureBuildings
+private void EnsureBuildings()
+{
+	if (this.State.buildings.Count == 0)
+	{
+		this.State.essentialBuildings = this.GetEssentialBuildings();
+		this.State.buildings = (from b in (from b in Serviceable.Settings.Buildings
+		where b.canBePicked || this.IsEssential(b)
+		where (this.IsEssential(b) && Serviceable.MetaStateService.Content.buildings.Contains(b.Name)) || Serviceable.MetaStateService.GameConditions.embarkBuildings.Any((string p) => p == b.Name)
+		select b).Concat(this.GetOptionalBuildings()).Distinct<BuildingModel>()
+		select b.Name).ToList<string>();
+	}
+	List<string> list = new List<string>();
+	list.Add("Forager's Camp");
+	list.Add("Herbalist's Camp");
+	list.Add("Trapper's Camp");
+	list.Add("SmallFarm");
+	list.Add("Plantation");
+	list.Add("Herb Garden");
+	list.Add("Hallowed SmallFarm");
+	list.Add("Hallowed Herb Garden");
+	list.Add("Hallowed Herb Garden");
+	list.Add("Beaver House");
+	list.Add("Fox House");
+	list.Add("Harpy House");
+	list.Add("Human House");
+	list.Add("Lizard House");
+	list.Add("Purged Beaver House");
+	list.Add("Purged Fox House");
+	list.Add("Purged Harpy House");
+	list.Add("Purged Human House");
+	list.Add("Purged Lizard House");
+	list.Add("Flawless Brewery");
+	list.Add("Flawless Cellar");
+	list.Add("Flawless Cooperage");
+	list.Add("Flawless Druid");
+	list.Add("Flawless Leatherworks");
+	list.Add("Flawless Rain Mill");
+	list.Add("Flawless Smelter");
+	list.Add("Holy Market");
+	list.Add("Holy Temple");
+	list.Add("Trading Post");
+	HashSet<string> buildingSet = new HashSet<string>(this.State.buildings);
+	foreach (string building in list)
+	{
+		BuildingModel replaces = Serviceable.Settings.GetBuilding(building).replaces;
+		if (replaces && buildingSet.Contains(replaces.Name))
+		{
+			buildingSet.Remove(replaces.Name);
+		}
+		buildingSet.Add(building);
+	}
+	this.State.buildings = buildingSet.ToList<string>();
+}
+```
 
 ### 6.2. More embarkation points
 
