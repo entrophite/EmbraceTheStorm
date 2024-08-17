@@ -84,14 +84,12 @@ public bool IsMovingAllBuildingsEnabled()
 }
 
 // Eremite.Services.ConstructionService.CanBeMoved
-// the function below is not changed; I haven't tested if setting this to true can be fun (e.g. enabling moving resource nodes and glade events); nor know if this causes bugs.
-public bool CanBeMoved(Building building)
-{
-	return (Serviceable.IsDebugMode && DebugModes.Construction) || (!building.IsMovingBlocked() && (this.CanMoveConstructionSite(building) || this.CanBeMoved(building.BuildingModel)));
-}
+// making buildings movable unconditionally, including hearths, glade events, caches, ghosts, etc. (yet to test the Seal);
+// moving hearth currently has a bug that when checking for placeable location it takes account for its own original location.
+// no need to change the overload version of CanBeMoved(Building building); since it always calls CanBeMoved(BuildingModel model) internally and will always return true if the latter always returns true.
 public bool CanBeMoved(BuildingModel model)
 {
-	return (Serviceable.IsDebugMode && DebugModes.Construction) || (!Serviceable.EffectsService.IsMovingBuildingsBlocked() && ((Serviceable.EffectsService.IsMovingAllBuildingsEnabled() && model.movableWithEffects) || model.movable));
+	return (Serviceable.IsDebugMode && DebugModes.Construction) || (!Serviceable.EffectsService.IsMovingBuildingsBlocked() && ((Serviceable.EffectsService.IsMovingAllBuildingsEnabled() && model.movableWithEffects) || model.movable)) || true;
 }
 ```
 
@@ -320,7 +318,7 @@ public int GetVillagerCapacity(Villager villager)
 
 ### 4.1. Unlock all blueprints proposed
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Unlocking all blueprints proposed in each draft. Only children make choices, adults want them all!
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Unlocking all blueprints from each draft poll. Only children make choices, adults want them all!
 
 ```c#
 // Eremite.Services.ReputationRewardsService.RewardPicked
@@ -353,7 +351,66 @@ private void SendPickAnalytics(BuildingModel building)
 
 ### 4.2. Multiple cornerstone pick
 
-<b><span style="color:#ffff40">IN-DEVELOPMENT: </span></b> Allowing multiple picks of cornerstones among proposed choices per draft. Since some cornerstones has side effects and is not guaranteed to grant advantage in every playthrough, it is not ideal to unlock them unconditionally like blueprints. The goal is to allow multiple picks, however this is significantly more difficult to implement and is still in development.
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Allowing multiple picks of cornerstones per draft poll. Since some cornerstones has side effects and is not guaranteed to grant advantage in every playthrough, it is not ideal to unlock them unconditionally like blueprints. Clicking the decline button will dismiss the draft and discard all remaining cornerstones.
+
+```c#
+// Eremite.Services.CornerstonesService.Pick
+// return the remaining cornerstones to the front of pick queue, if applicable
+public void Pick(EffectModel reward)
+{
+	bool assertions = DebugModes.Assertions;
+	RewardPickState currentPick = this.GetCurrentPick();
+	Log.Info(string.Format("[Cor] Set last date pick: {0} {1} {2}", currentPick.date.year, currentPick.date.season, currentPick.date.quarter), null);
+	if (reward != null)
+	{
+		this.SendPickAnalytics(currentPick, reward.Name);
+	}
+	if (!currentPick.isExtra)
+	{
+		Serviceable.StateService.Gameplay.lastCornerstonePickDate = currentPick.date;
+	}
+	this.Picks.Remove(currentPick);
+	if (reward != null)
+	{
+		reward.Apply(EffectContextType.None, null, 0);
+		currentPick.options.Remove(reward.Name);
+		if (currentPick.options.Count > 0)
+		{
+			this.Picks.Insert(0, currentPick);
+		}
+	}
+	if (reward == null)
+	{
+		this.RewardForDecline();
+	}
+	this.OnRewardsPicked.OnNext(reward);
+}
+
+// Eremite.View.HUD.RewardPickPopup.OnRewardPicked
+// make cornerstone pick screen auto-repop when the pick queue is not empty
+// similar to Eremite.View.HUD.ReputationRewardsPopup.TryShowingNext
+private void OnRewardPicked(EffectModel reward)
+{
+	Log.Info(string.Format("[Cor] Cornerstone {0} picked in {1} {2} {3}", new object[]
+	{
+		reward.Name,
+		GameMB.CalendarService.Year,
+		GameMB.CalendarService.Season,
+		GameMB.CalendarService.Quarter
+	}), null);
+	GameMB.CornerstonesService.Pick(reward);
+	if (GameMB.CornerstonesService.GetCurrentPick() != null)
+	{
+		this.SetUpSlots();
+		this.SetUpReroll();
+		this.SetUpDeclineButton();
+		this.SetUpPollPanel();
+		this.SetUpDialogue();
+		return;
+	}
+	this.Hide();
+}
+```
 
 
 ## 5. Meta progression
@@ -388,7 +445,19 @@ public void Pick(CapitalUpgradeModel model)
 
 ## 6. Embarkation
 
-### 6.1. Always-unlocked blueprints
+### 6.1. More embarkation points
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying base embarkation points for every caravan, 200 in the below example. Note the diminishing returns with high values, as the total count of embarkation bonus to apply for a caravan is limited.
+
+```c#
+// Eremite.View.Menu.Pick.BuildingsPickScreen.GetBasePreparationPoints
+private int GetBasePreparationPoints()
+{
+	return Mathf.Max(0, MB.MetaPerksService.GetBasePreparationPoints() + WorldMB.WorldMapService.GetMinDifficultyFor(this.field).preparationPointsPenalty) + 200;
+}
+```
+
+### 6.2. Always-unlocked blueprints
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Making some blueprints unconditionally unlocked for every game. Multiple buildings are included in the example below. Name of buildings to add can be found in [buildings_list.txt](buildings_list.txt), note not all buildings from this list can be built in game.
 
@@ -449,14 +518,29 @@ private void EnsureBuildings()
 }
 ```
 
-### 6.2. More embarkation points
+### 6.3. Embarkation goods
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying base embarkation points for every caravan, 200 in the below example. Note the diminishing returns with high values, as the total count of embarkation bonus to apply for a caravan is limited.
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying picked goods and adding extra goods to the embarking caravan, 10x Parts and 100 Amber in the example below. The very same function can be used to modify effects (e.g. cornerstones).
 
 ```c#
-// Eremite.View.Menu.Pick.BuildingsPickScreen.GetBasePreparationPoints
-private int GetBasePreparationPoints()
+// Eremite.WorldMap.UI.EmbarkScreen.CreateGameConditions
+private void SetUpEmbarkBonuses(EmbarkCaravanState caravan)
 {
-	return Mathf.Max(0, MB.MetaPerksService.GetBasePreparationPoints() + WorldMB.WorldMapService.GetMinDifficultyFor(this.field).preparationPointsPenalty) + 200;
+	base.Conditions.embarkBuildings = (from e in Serviceable.MetaStateService.EmbarkBonuses.buildingsPicked
+	select e.name).ToList<string>();
+	base.Conditions.embarkEffects = (from e in Serviceable.MetaStateService.EmbarkBonuses.rewardsPicked
+	select e.name).Concat(caravan.embarkEffects).Concat(caravan.bonusEmbarkEffects).ToList<string>();
+	base.Conditions.embarkGoods = (from g in Serviceable.MetaStateService.EmbarkBonuses.goodsPicked
+	select new Good(g.name, g.amount)).Concat(caravan.embarkGoods).Concat(caravan.bonusEmbarkGoods).ToList<Good>();
+	for (int i = 0; i < base.Conditions.embarkGoods.Count; i++)
+	{
+		Good good = base.Conditions.embarkGoods[i];
+		if (good.name == "[Mat Processed] Parts")
+		{
+			good.amount *= 10;
+			base.Conditions.embarkGoods[i] = good;
+		}
+	}
+	base.Conditions.embarkGoods.Add(new Good("[Valuable] Amber", 100));
 }
 ```
