@@ -85,11 +85,36 @@ public bool IsMovingAllBuildingsEnabled()
 
 // Eremite.Services.ConstructionService.CanBeMoved
 // making buildings movable unconditionally, including hearths, glade events, caches, ghosts, etc. (yet to test the Seal);
-// moving hearth currently has a bug that when checking for placeable location it takes account for its own original location.
 // no need to change the overload version of CanBeMoved(Building building); since it always calls CanBeMoved(BuildingModel model) internally and will always return true if the latter always returns true.
 public bool CanBeMoved(BuildingModel model)
 {
 	return (Serviceable.IsDebugMode && DebugModes.Construction) || (!Serviceable.EffectsService.IsMovingBuildingsBlocked() && ((Serviceable.EffectsService.IsMovingAllBuildingsEnabled() && model.movableWithEffects) || model.movable)) || true;
+}
+
+// Eremite.Buildings.Hearth.IsTooCloseToOtherHearth
+// this solves self-collision when moving hearths
+private bool IsTooCloseToOtherHearth()
+{
+	if (this.state.placed)
+	{
+		return false;
+	}
+	this.RecalculateArea();
+	foreach (HearthState hearthState in GameMB.StateService.Buildings.hearths)
+	{
+		Hearth hearth = GameMB.BuildingsService.GetBuildingOrConstruction(hearthState.id) as Hearth;
+		if (!hearthState.lifted)
+		{
+			foreach (Vector2Int field in this.area)
+			{
+				if (hearth.IsInRange(field))
+				{
+					return true;
+				}
+			}
+		}
+	}
+	return false;
 }
 ```
 
