@@ -72,7 +72,7 @@ public float CalculateFrameCorruption()
 }
 ```
 
-### 1.3. Building always movable
+### 1.3.1. Building movability lite
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Enabling building movement as if the map modifier "Levitating Monument" is always on.
 
@@ -82,7 +82,13 @@ public bool IsMovingAllBuildingsEnabled()
 {
 	return this.Effects.movingAllBuildingsEnablers.Count > 0 || true;
 }
+```
 
+### 1.3.2. Building movability enhanced
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Enabling building movement more aggressively, allowing moving more *buildings* than the "Levitating Monument" map modifier, including hearths, ruins, caches, etc., even glade events. Resource nodes are still not movable.
+
+```c#
 // Eremite.Services.ConstructionService.CanBeMoved
 // making buildings movable unconditionally, including hearths, glade events, caches, ghosts, etc. (yet to test the Seal);
 // no need to change the overload version of CanBeMoved(Building building); since it always calls CanBeMoved(BuildingModel model) internally and will always return true if the latter always returns true.
