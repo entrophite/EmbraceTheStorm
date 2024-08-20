@@ -194,6 +194,50 @@ public float GetConstructionRate()
 }
 ```
 
+### 1.9. Exposed glade information
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Always showing dangerous glade icons, ignoring related effects and map modifiers. In addition, always allowing glade tooltip showing its content (similar to the cornerstone "Mists Piercers" without the negative effect).
+
+```c#
+// Eremite.Services.EffectsService.BlockDangerousGladesInfo
+public void BlockDangerousGladesInfo(string owner)
+{
+	this.Effects.dangerousGladeInfoBlocksOwners.Add(owner);
+	this.DangerousGladeInfo.Value = (this.Effects.dangerousGladeInfoBlocksOwners.Count == 0 || true);
+}
+
+// Eremite.Services.EffectsService.RemoveDangerousGladeInfoBlock
+public void RemoveDangerousGladeInfoBlock(string owner)
+{
+	this.Effects.dangerousGladeInfoBlocksOwners.Remove(owner);
+	this.DangerousGladeInfo.Value = (this.Effects.dangerousGladeInfoBlocksOwners.Count == 0 || true);
+}
+
+// Eremite.Services.EffectsService.GrantGladeInfo
+public void GrantGladeInfo(string owner)
+{
+	this.Effects.gladeInfoOwners.Add(owner);
+	this.GladeInfo.Value = (this.Effects.gladeInfoOwners.Count > 0 || true);
+}
+
+// Eremite.Services.EffectsService.Remove
+public void RemoveGladeInfo(string owner)
+{
+	this.Effects.gladeInfoOwners.Remove(owner);
+	this.GladeInfo.Value = (this.Effects.gladeInfoOwners.Count > 0 || true);
+}
+
+// Eremite.Services.EffectsService.PrepareInitialValues
+private void PrepareInitialValues()
+{
+	this.GladeInfo.Value = (this.Effects.gladeInfoOwners.Count > 0 || true);  // mod this line
+	this.DangerousGladeInfo.Value = (this.Effects.dangerousGladeInfoBlocksOwners.Count == 0 || true);  // mod this line
+	this.IsHearthSacrificeBlocked.Value = (this.Effects.hearthSacrificeBlockOwners.Count > 0);
+	this.IsVillagerDeathEffectBlocked.Value = (this.Effects.villagerDeathEffectBlockOwners.Count > 0);
+}
+```
+
+
 ## 2. Production
 
 ### 2.1. Global production multiplier
