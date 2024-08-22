@@ -72,7 +72,7 @@ public float CalculateFrameCorruption()
 }
 ```
 
-### 1.3.1. Building movability lite
+### 1.3.1. Perpetual levitating monument
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Enabling building movement as if the map modifier "Levitating Monument" is always on.
 
@@ -84,7 +84,7 @@ public bool IsMovingAllBuildingsEnabled()
 }
 ```
 
-### 1.3.2. Building movability enhanced
+### 1.3.2. Aggressive building movability
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Enabling building movement more aggressively, allowing moving more *buildings* than the "Levitating Monument" map modifier, including hearths, ruins, caches, etc., even glade events. Resource nodes are still not movable.
 
@@ -538,7 +538,7 @@ public void Pick(CapitalUpgradeModel model)
 
 ## 6. Embarkation
 
-### 6.1. Larger embarkation caravan
+### 6.1. Larger caravan
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying starting up number of villager for each embarkation caravan, 4x in the example below.
 
@@ -550,7 +550,7 @@ private int GetVillagersAmount(System.Random rng)
 }
 ```
 
-### 6.3. Embarkation goods
+### 6.2. Carrying goods
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying picked goods and adding extra goods to the embarking caravan, 10x everything with an extra of 200 Amber in the example below. The very same function can be used to modify effects (e.g. cornerstones).
 
@@ -572,7 +572,7 @@ private List<Good> GenerateGoods()
 }
 ```
 
-### 6.3. More embarkation points
+### 6.3. Embarkation points
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying base embarkation points for every caravan, 200 in the below example. Note the diminishing returns with high values, as the total count of embarkation bonus to apply for a caravan is limited.
 
@@ -643,5 +643,19 @@ private void EnsureBuildings()
 		buildingSet.Add(building);
 	}
 	this.State.buildings = buildingSet.ToList<string>();
+}
+```
+
+### 6.4. Cornerstones
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Allowing extra cornerstones (effects), adding hauling cart in the example below.
+
+```c#
+// Eremite.Services.Meta.CaravanGenerator.GenerateEffects
+private List<string> GenerateEffects()
+{
+	List<string> list = this.cycleEffects.bonusEmbarkEffects.ToList<string>();
+	list.Add("Hauling Cart in All Warehouses");
+	return list;
 }
 ```
