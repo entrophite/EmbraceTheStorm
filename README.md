@@ -552,7 +552,7 @@ private int GetVillagersAmount(System.Random rng)
 
 ### 6.3. Embarkation goods
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying picked goods and adding extra goods to the embarking caravan, 10x Parts and 200 Amber in the example below. The very same function can be used to modify effects (e.g. cornerstones).
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying picked goods and adding extra goods to the embarking caravan, 10x everything with an extra of 200 Amber in the example below. The very same function can be used to modify effects (e.g. cornerstones).
 
 ```c#
 // Eremite.Services.Meta.CaravanGenerator.GenerateGoods
@@ -564,12 +564,8 @@ private List<Good> GenerateGoods()
 	select g).ToList<Good>();
 	for (int i = 0; i < goods.Count; i++)
 	{
-		Good g2 = goods[i];
-		if (g2.name == "[Mat Processed] Parts")
-		{
-			g2.amount *= 10;
-			goods[i] = g2;
-		}
+		Good g2 = new Good(goods[i].name, goods[i].amount * 10);
+		goods[i] = g2;
 	}
 	goods.Add(new Good("[Valuable] Amber", 200));
 	return goods;
