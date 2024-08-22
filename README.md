@@ -538,7 +538,45 @@ public void Pick(CapitalUpgradeModel model)
 
 ## 6. Embarkation
 
-### 6.1. More embarkation points
+### 6.1. Larger embarkation caravan
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying starting up number of villager for each embarkation caravan, 4x in the example below.
+
+```c#
+// Eremite.Services.Meta.CaravanGenerator.GetVillagersAmount
+private int GetVillagersAmount(System.Random rng)
+{
+	return Mathf.Max(Serviceable.Settings.gameplayRaces, this.Config.embarkVillagersAmount.Random(rng) + this.cycleEffects.bonusEmbarkVillagers) * 4;
+}
+```
+
+### 6.3. Embarkation goods
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying picked goods and adding extra goods to the embarking caravan, 10x Parts and 200 Amber in the example below. The very same function can be used to modify effects (e.g. cornerstones).
+
+```c#
+// Eremite.Services.Meta.CaravanGenerator.GenerateGoods
+private List<Good> GenerateGoods()
+{
+	List<Good> goods = (from g in (from g in this.Config.caravanGoodsAlwaysIncluded
+	select g.ToGood()).Concat(this.GetMetaEmbarkGoods()).Unify().Select(new Func<Good, Good>(this.MultiplyByEmbarkFactor)).Concat(this.GetCycleEmbarkGoods()).Unify()
+	orderby Serviceable.Settings.GetGood(g.name).category.order, Serviceable.Settings.GetGood(g.name).order descending
+	select g).ToList<Good>();
+	for (int i = 0; i < goods.Count; i++)
+	{
+		Good g2 = goods[i];
+		if (g2.name == "[Mat Processed] Parts")
+		{
+			g2.amount *= 10;
+			goods[i] = g2;
+		}
+	}
+	goods.Add(new Good("[Valuable] Amber", 200));
+	return goods;
+}
+```
+
+### 6.3. More embarkation points
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying base embarkation points for every caravan, 200 in the below example. Note the diminishing returns with high values, as the total count of embarkation bonus to apply for a caravan is limited.
 
@@ -550,7 +588,8 @@ private int GetBasePreparationPoints()
 }
 ```
 
-### 6.2. Always-unlocked blueprints
+
+### 6.4. Always-unlocked blueprints
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Making some blueprints unconditionally unlocked for every game. Multiple buildings are included in the example below. Name of buildings to add can be found in [buildings_list.txt](buildings_list.txt), note not all buildings from this list can be built in game.
 
@@ -608,32 +647,5 @@ private void EnsureBuildings()
 		buildingSet.Add(building);
 	}
 	this.State.buildings = buildingSet.ToList<string>();
-}
-```
-
-### 6.3. Embarkation goods
-
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying picked goods and adding extra goods to the embarking caravan, 10x Parts and 100 Amber in the example below. The very same function can be used to modify effects (e.g. cornerstones).
-
-```c#
-// Eremite.WorldMap.UI.EmbarkScreen.CreateGameConditions
-private void SetUpEmbarkBonuses(EmbarkCaravanState caravan)
-{
-	base.Conditions.embarkBuildings = (from e in Serviceable.MetaStateService.EmbarkBonuses.buildingsPicked
-	select e.name).ToList<string>();
-	base.Conditions.embarkEffects = (from e in Serviceable.MetaStateService.EmbarkBonuses.rewardsPicked
-	select e.name).Concat(caravan.embarkEffects).Concat(caravan.bonusEmbarkEffects).ToList<string>();
-	base.Conditions.embarkGoods = (from g in Serviceable.MetaStateService.EmbarkBonuses.goodsPicked
-	select new Good(g.name, g.amount)).Concat(caravan.embarkGoods).Concat(caravan.bonusEmbarkGoods).ToList<Good>();
-	for (int i = 0; i < base.Conditions.embarkGoods.Count; i++)
-	{
-		Good good = base.Conditions.embarkGoods[i];
-		if (good.name == "[Mat Processed] Parts")
-		{
-			good.amount *= 10;
-			base.Conditions.embarkGoods[i] = good;
-		}
-	}
-	base.Conditions.embarkGoods.Add(new Good("[Valuable] Amber", 100));
 }
 ```
