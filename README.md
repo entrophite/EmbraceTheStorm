@@ -237,6 +237,24 @@ private void PrepareInitialValues()
 }
 ```
 
+### 1.10. Deprioritized path construction
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Construction of Path, Paved Road and Reinforced Road has a default construction priority of -2.
+
+```c#
+// Eremite.Buildings.Building.SetUpState
+private void SetUpState()
+{
+	this.BuildingState.placed = true;
+	this.BuildingState.placedTime = GameMB.GameTimeService.Time;
+	this.BuildingState.unscaledPlacedTime = GameMB.GameTimeService.UnscaledTime;
+	if (this.BuildingModel.category == MB.Settings.GetBuilding("Path").category)
+	{
+		this.BuildingState.constructionPriority = Math.Clamp(this.BuildingState.constructionPriority - 2, -5, 5);
+	}
+	Building.lastRotation = this.BuildingState.rotation;
+}
+```
 
 ## 2. Production
 
