@@ -552,23 +552,24 @@ private int GetVillagersAmount(System.Random rng)
 
 ### 6.2. Carrying goods
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying picked goods and adding extra goods to the embarking caravan, 10x everything with an extra of 200 Amber in the example below. The very same function can be used to modify effects (e.g. cornerstones).
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying picked goods and adding extra goods to the embarking caravan, 10x everything already added, extra 200 Amber and 300 Crystalized Dew in the example below. The very same function can be used to modify effects (e.g. cornerstones).
 
 ```c#
 // Eremite.Services.Meta.CaravanGenerator.GenerateGoods
 private List<Good> GenerateGoods()
 {
-	List<Good> goods = (from g in (from g in this.Config.caravanGoodsAlwaysIncluded
+	List<Good> list = (from g in (from g in this.Config.caravanGoodsAlwaysIncluded
 	select g.ToGood()).Concat(this.GetMetaEmbarkGoods()).Unify().Select(new Func<Good, Good>(this.MultiplyByEmbarkFactor)).Concat(this.GetCycleEmbarkGoods()).Unify()
 	orderby Serviceable.Settings.GetGood(g.name).category.order, Serviceable.Settings.GetGood(g.name).order descending
 	select g).ToList<Good>();
-	for (int i = 0; i < goods.Count; i++)
+	for (int i = 0; i < list.Count; i++)
 	{
-		Good g2 = new Good(goods[i].name, goods[i].amount * 10);
-		goods[i] = g2;
+		Good value = new Good(list[i].name, list[i].amount * 10);
+		list[i] = value;
 	}
-	goods.Add(new Good("[Valuable] Amber", 200));
-	return goods;
+	list.Add(new Good("[Valuable] Amber", 200));
+	list.Add(new Good("[Metal] Crystalized Dew", 300));
+	return list;
 }
 ```
 
@@ -611,6 +612,7 @@ private void EnsureBuildings()
 	list.Add("Herb Garden");
 	list.Add("Hallowed SmallFarm");
 	list.Add("Hallowed Herb Garden");
+	list.Add("Homestead");
 	list.Add("Hallowed Herb Garden");
 	list.Add("Beaver House");
 	list.Add("Fox House");
@@ -629,33 +631,58 @@ private void EnsureBuildings()
 	list.Add("Flawless Leatherworks");
 	list.Add("Flawless Rain Mill");
 	list.Add("Flawless Smelter");
+	list.Add("Finesmith");
+	list.Add("Rainpunk Foundry");
+	list.Add("Altar");
+	list.Add("Bath House");
+	list.Add("Clan Hall");
+	list.Add("Explorers Lodge");
+	list.Add("Forum");
+	list.Add("Guild House");
+	list.Add("Market");
 	list.Add("Holy Market");
+	list.Add("Monastery");
+	list.Add("Tavern");
+	list.Add("Tea Doctor");
+	list.Add("Temple");
 	list.Add("Holy Temple");
-	list.Add("Trading Post");
-	HashSet<string> buildingSet = new HashSet<string>(this.State.buildings);
-	foreach (string building in list)
+	HashSet<string> hashSet = new HashSet<string>(this.State.buildings);
+	foreach (string text in list)
 	{
-		BuildingModel replaces = Serviceable.Settings.GetBuilding(building).replaces;
-		if (replaces && buildingSet.Contains(replaces.Name))
+		BuildingModel replaces = Serviceable.Settings.GetBuilding(text).replaces;
+		if (replaces && hashSet.Contains(replaces.Name))
 		{
-			buildingSet.Remove(replaces.Name);
+			hashSet.Remove(replaces.Name);
 		}
-		buildingSet.Add(building);
+		hashSet.Add(text);
 	}
-	this.State.buildings = buildingSet.ToList<string>();
+	this.State.buildings = hashSet.ToList<string>();
+}
+
+// Eremite.Services.ConstructionService.ShouldShowInShop
+// in addition, some needs to be 'force enabled' in building menu
+public bool ShouldShowInShop(BuildingModel model)
+{
+	return model.isInShop || model.Name == "Homestead" || model.Name == "Finesmith" || model.Name == "Rainpunk Foundry" || DebugModes.Construction;
 }
 ```
 
-### 6.4. Cornerstones
+### 6.4. Cornerstones/effects
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Allowing extra cornerstones (effects), adding hauling cart in the example below.
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Allowing extra cornerstones/effects, adding hauling cart in the example below. There are multiple possible places to implemenent this functionality, the example adds the effects to global embarkation effect list when a new world map is generated.
 
 ```c#
-// Eremite.Services.Meta.CaravanGenerator.GenerateEffects
-private List<string> GenerateEffects()
+// Eremite.Services.WorldStateService.GenerateNewState
+public void GenerateNewState()
 {
-	List<string> list = this.cycleEffects.bonusEmbarkEffects.ToList<string>();
-	list.Add("Hauling Cart in All Warehouses");
-	return list;
+	WorldGenerationResult worldGenerationResult = new WorldGenerator(this.GetGenerationModel(), this.state.seed).GenerateNewMap();
+	this.state.fields = worldGenerationResult.fields;
+	this.state.worldEvents = worldGenerationResult.events;
+	this.state.modifiers = worldGenerationResult.modifiers;
+	this.state.seals = worldGenerationResult.seals;
+	if (!this.CycleEffects.bonusEmbarkEffects.Contains("Hauling Cart in All Warehouses"))
+	{
+		this.CycleEffects.bonusEmbarkEffects.Add("Hauling Cart in All Warehouses");
+	}
 }
 ```
