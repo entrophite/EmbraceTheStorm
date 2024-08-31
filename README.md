@@ -609,6 +609,8 @@ private void EnsureBuildings()
 	list.Add("Trapper's Camp");
 	list.Add("SmallFarm");
 	list.Add("Plantation");
+	list.Add("Clay Pit Workshop");
+	list.Add("Greenhouse Workshop");
 	list.Add("Herb Garden");
 	list.Add("Hallowed SmallFarm");
 	list.Add("Hallowed Herb Garden");
