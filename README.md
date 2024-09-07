@@ -688,3 +688,35 @@ public void GenerateNewState()
 	}
 }
 ```
+
+### 6.5. Revealing all races
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Revealing all races at the caravan choice.
+
+```c#
+// Eremite.View.Menu.Pick.CaravanPickSlot
+private void SetUpRaces()
+{
+	int num = 0;
+	using (IEnumerator<string> enumerator = this.state.races.GetEnumerator())
+	{
+		while (enumerator.MoveNext())
+		{
+			string raceName = enumerator.Current;
+			RaceModel race = MB.Settings.GetRace(raceName);
+			base.GetOrCreate<RaceSlot>(this.raceSlots, num++).SetUp(race, this.GetAmountOf(race));
+		}
+		goto IL_73;
+	}
+	IL_5D:
+	base.GetOrCreate<RaceSlot>(this.raceSlots, num).SetUpUnknown();
+	num++;
+	IL_73:
+	if (num >= MB.Settings.gameplayRaces)
+	{
+		base.HideRest<RaceSlot>(this.raceSlots, num);
+		return;
+	}
+	goto IL_5D;
+}
+```
