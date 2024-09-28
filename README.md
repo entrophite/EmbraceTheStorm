@@ -108,9 +108,9 @@ private bool IsTooCloseToOtherHearth()
 	this.RecalculateArea();
 	foreach (HearthState hearthState in GameMB.StateService.Buildings.hearths)
 	{
-		Hearth hearth = GameMB.BuildingsService.GetBuildingOrConstruction(hearthState.id) as Hearth;
 		if (!hearthState.lifted)
 		{
+			Hearth hearth = GameMB.BuildingsService.GetBuildingOrConstruction(hearthState.id) as Hearth;
 			foreach (Vector2Int field in this.area)
 			{
 				if (hearth.IsInRange(field))
@@ -275,10 +275,10 @@ public Good GetProduction(Building building, Good baseProduction, RecipeModel re
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the production speed for, 2x in the example below. This affects all recipe-based production, including camps, pumps, mines, farms, rain collectors, production buildings, etc., virually all production in the game. Note the diminishing returns with high values, as logistics will become the bottleneck.
 
 ```c#
-// Eremite.Services.EffectsService.GetBuildingProductionRate
-public float GetBuildingProductionRate(Building building, RecipeModel recipe)
+// Eremite.Services.EffectsService.GetProductionRate
+public float GetProductionRate(Building building, Actor actor, RecipeModel recipe)
 {
-	return Mathf.Clamp(this.GetBuildingRawProductionRate(building.BuildingModel, recipe) + this.GetInternalProductionRate(building), this.PerksConfig.minProductionSpeed, this.PerksConfig.maxProductionSpeed) * 2f;
+	return Mathf.Clamp(this.GetBuildingRawProductionRate(building.BuildingModel, recipe) + this.GetInternalProductionRate(building) + this.GetActorProductionRate(actor), this.PerksConfig.minProductionSpeed, this.PerksConfig.maxProductionSpeed) * 2f;
 }
 ```
 
@@ -309,6 +309,7 @@ public void SetUp(RainCatcherModel model, RainCatcherState state)
 	{
 		this.model.baseTankCapacity *= 10;
 	}
+	base.SetUpBuilding();
 }
 
 // Eremite.Buildings.Extractor.GetTankCapacity
@@ -320,7 +321,7 @@ public int GetTankCapacity()
 
 ### 2.5. Default global production limit
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the global production limit, 150 in the example below. Manually setting everything is way too tideous.
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the global production limit, 500 in the example below. Manually setting everything is way too tideous.
 
 ```c#
 // Eremite.Services.WorkshopsService.GetGlobalLimitFor
@@ -328,7 +329,7 @@ public int GetGlobalLimitFor(string goodName)
 {
 	if (!this.Limits.ContainsKey(goodName))
 	{
-		return 150;
+		return 500;
 	}
 	return this.Limits[goodName];
 }
@@ -360,6 +361,7 @@ public void SetUp(WorkshopModel model, WorkshopState state)
 			}
 		}
 	}
+	base.SetUpBuilding();
 	this.ProductionStorage.SetUp(this, state.productionStorage, model.maxStorage);
 	this.ingredientsStorage.SetUp(this, state.ingredientsStorage, new Func<int, GoodRequest>(this.GetBestGoodToObtain));
 	this.blight.SetUp(this, state.blight);
@@ -394,16 +396,10 @@ public void ChangeLimitFor(WorkshopRecipeState recipe, int amount, bool isLocalC
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the carrying capacity of workers and carts, 5x in the example below. Note that setting these numbers too high can cause other problems, e.g. taking unnecessarily large amount of each ingredient from the warehouse to the production building upon enabling the recipe in the building.
 
 ```c#
-// Eremite.Services.EffectsService.GetCartCapacity
-public int GetCartCapacity(Cart cart)
+// Eremite.Services.EffectsService.GetActorCapacity
+public int GetActorCapacity(Actor actor)
 {
-	return (cart.model.baseCapacity + this.Effects.globalBonusCapacity + this.MetaPerks.globalCapacityBonus + this.GetProfessionsBonusCapacity(cart.GetWorkplaceProfession().Name) + this.GetWorkplaceBonusCapacity(cart)) * 5;
-}
-
-// Eremite.Services.EffectsService.GetVillagerCapacity
-public int GetVillagerCapacity(Villager villager)
-{
-	return (villager.professionModel.MaxCapacity + this.Effects.globalBonusCapacity + this.MetaPerks.globalCapacityBonus + this.GetProfessionsBonusCapacity(villager.Profession) + this.GetWorkplaceBonusCapacity(villager)) * 5;
+	return Mathf.Max(1, actor.GetBaseCapacity() + this.Effects.globalBonusCapacity + this.MetaPerks.globalCapacityBonus + this.GetProfessionsBonusCapacity(actor.Profession) + this.GetWorkplaceBonusCapacity(actor)) * 5;
 }
 ```
 
@@ -695,7 +691,7 @@ public void GenerateNewState()
 
 ```c#
 // Eremite.View.Menu.Pick.CaravanPickSlot
-private void SetUpRaces()
+
 {
 	int num = 0;
 	using (IEnumerator<string> enumerator = this.state.races.GetEnumerator())
