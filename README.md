@@ -126,6 +126,7 @@ private bool IsTooCloseToOtherHearth()
 			}
 		}
 	}
+	return false;
 }
 ```
 
@@ -142,7 +143,20 @@ public float GetRelicWorkingTime(float baseTime, Relic relic)
 }
 ```
 
-### 1.5. House capacity
+### 1.5. Expedition duration
+
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the expedition duration, 0.2x in the example below.
+
+```c#
+// Eremite.Buildings.Port.CalculateDuration
+public float CalculateDuration()
+{
+	//return this.GetCurrentExpeditionModel().baseDuration + (float)(this.state.expeditionLevel - 1) * this.GetCurrentExpeditionModel().extraDurationPerLevel;
+	return (this.GetCurrentExpeditionModel().baseDuration + (float)(this.state.expeditionLevel - 1) * this.GetCurrentExpeditionModel().extraDurationPerLevel) * 0.2f;
+}
+```
+
+### 1.6. House capacity
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying capacity for each house, 3x in the example below. This capacity modifier scales other in-game bonuses as well, e.g. +1 bonus.
 
@@ -164,7 +178,7 @@ public int GetHouseCapacity(HouseModel house)
 }
 ```
 
-### 1.6. Goods' selling price to trader
+### 1.7. Goods' selling price to trader
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying sell price of goods to traders to greatly enhance trading experience, 10x worth of value in the example below.
 
@@ -177,7 +191,7 @@ public float GetValueInCurrency(string name, int amount)
 }
 ```
 
-### 1.7. Trade route profit
+### 1.8. Trade route profit
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying sell price of goods to traders to greatly enhances trading experience, 10x worth of value in the example below.
 
@@ -192,7 +206,7 @@ private int GetPriceFor(float goodTradeValue, TradeTownState town)
 }
 ```
 
-### 1.8. Construction speed
+### 1.9. Construction speed
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying construction speed of buildings, 2x in the example below.
 
@@ -205,7 +219,7 @@ public float GetConstructionRate()
 }
 ```
 
-### 1.9. Exposed glade information
+### 1.10. Exposed glade information
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Always showing dangerous glade icons, ignoring related effects and map modifiers. In addition, always allowing glade tooltip showing its content (similar to the cornerstone "Mists Piercers" without the negative effect).
 
@@ -254,7 +268,7 @@ private void PrepareInitialValues()
 }
 ```
 
-### 1.10. Deprioritized path construction
+### 1.11. Deprioritized path construction
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Construction of Path, Paved Road and Reinforced Road has a default construction priority of -2.
 
@@ -292,7 +306,7 @@ public Good GetProduction(Building building, Good baseProduction, RecipeModel re
 
 ### 2.2. Global production speed
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the production speed for, 2x in the example below. This affects all recipe-based production, including camps, pumps, mines, farms, rain collectors, production buildings, etc., virually all production in the game. Note the diminishing returns with high values, as logistics will become the bottleneck.
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the production speed, 2x in the example below. This affects all recipe-based production, including camps, pumps, mines, farms, rain collectors, production buildings, etc., virually all production in the game. Note the diminishing returns with high values, as logistics will become the bottleneck.
 
 ```c#
 // Eremite.Services.EffectsService.GetProductionRate
@@ -303,7 +317,7 @@ public float GetProductionRate(Building building, Actor actor, RecipeModel recip
 }
 ```
 
-### 2.3 Production building capacity (non-rainwater)
+### 2.3. Production building capacity (non-rainwater)
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the product storage of production buildings, 5x in the example below. This affects virually all production buildings in the game, except rain collectors and pumps. Note that setting this number too high can cause other problems, e.g. the amount of products buffered before triggering the delivery, causing starving of downstream production. Although the delivery threshold can be set manually, that's too tideous doing it for every single building.
 
@@ -361,7 +375,7 @@ public int GetGlobalLimitFor(string goodName)
 }
 ```
 
-### 2.6. Reduced global production limit for low-star recipes
+### 2.6. Reduced global production limit for low-level recipes
 
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Separating the production limit for low-star recipes when using global production limit values, 20% for 0-star recipes and 60% for 1-star recipes in the example below. Unlimited global limits, manually set limits and 2/3-star recipes are not affected. In addition, when the global limit of a product is active, the limit for corresponding low-star recipes cannot go below 1 (since the game use the value 0 for unlimited production).
 
@@ -716,7 +730,7 @@ private void EnsureBuildings()
 }
 
 // Eremite.Services.ConstructionService.ShouldShowInShop
-// in addition, some needs to be 'force enabled' in building menu
+// in addition, some need extra work to be made buildable
 public bool ShouldShowInShop(BuildingModel model)
 {
 	//return model.isInShop || DebugModes.Construction;
