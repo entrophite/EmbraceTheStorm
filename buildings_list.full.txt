@@ -1,494 +1,528 @@
-Advanced Rain Catcher
-Aestherics 2x2 - Garden
-Aestherics 2x2 - Groundwater Extractor
-Alchemist Hut
-Altar
-Ancient Gravestone
-AncientBurrialGrounds
-AncientGate
-AncientShrine_T1
-AncientTemple
-Angry Ghost 1
-Angry Ghost 10
-Angry Ghost 14
-Angry Ghost 15
-Angry Ghost 16
-Angry Ghost 17
-Angry Ghost 18
-Angry Ghost 19
-Angry Ghost 2
-Angry Ghost 20
-Angry Ghost 21
-Angry Ghost 24
-Angry Ghost 31
-Angry Ghost 32
-Angry Ghost 34
-Angry Ghost 4
-Angry Ghost 5
-Angry Ghost 6
-Angry Ghost 9
-AngryGhostChest_T1
-Anvil
-Apothecary
-Arch
-Archaeology Scorpion Positive
-Archaeology Snake Positive
-Archaeology Spider Positive
-Archeology office
-Artisan
-Bakery
-Bank
-Barrels
-Bath House
-Beanery
-Beaver House
-BeaverBattleground_T1
-Big Shelter
-Black Stag
-Black Treasure Stag
-Blight Post
-Blightrot
-Blightrot - Clone
-Blightrot Cauldron
-Bonfire
-Brewery
-Brick Oven
-Brickyard
-Bush
-Butcher
-Cages
-Calm Ghost 11
-Calm Ghost 12
-Calm Ghost 13
-Calm Ghost 22
-Calm Ghost 23
-Calm Ghost 25
-Calm Ghost 26
-Calm Ghost 27
-Calm Ghost 28
-Calm Ghost 29
-Calm Ghost 3
-Calm Ghost 30
-Calm Ghost 33
-Calm Ghost 35
-Calm Ghost 36
-Calm Ghost 7
-Calm Ghost 8
-CalmGhostChest_T1
-Camp_T1
-Camp_T2
-Caravan_T1
-Caravan_T2
-Carpenter
-Cellar
-Chest
-Clan Hall
-Clay Pit Workshop
-Clothier
-Comfort 2x2 - Park
-Cookhouse
-Cooperage
-Coral Decor
-CornerFence
-Corrupted Caravan
-Crates
-Crude Workstation
-DebugNode_ClayBig
-DebugNode_ClaySmall
-DebugNode_DewberryBushBig
-DebugNode_DewberryBushSmall
-DebugNode_FlaxBig
-DebugNode_FlaxSmall
-DebugNode_HerbsBig
-DebugNode_HerbsSmall
-DebugNode_LeechBroodmotherBig
-DebugNode_LeechBroodmotherSmall
-DebugNode_MarshlandsMushroomBig
-DebugNode_MarshlandsMushroomSmall
-DebugNode_Marshlands_InfiniteGrain
-DebugNode_Marshlands_InfiniteMeat
-DebugNode_Marshlands_InfiniteMushroom
-DebugNode_MossBroccoliBig
-DebugNode_MossBroccoliSmall
-DebugNode_MushroomBig
-DebugNode_MushroomSmall
-DebugNode_ReedBig
-DebugNode_ReedSmall
-DebugNode_RootsBig
-DebugNode_RootsSmall
-DebugNode_SeaMarrowBig
-DebugNode_SeaMarrowSmall
-DebugNode_SnailBroodmotherBig
-DebugNode_SnailBroodmotherSmall
-DebugNode_SnakeNestBig
-DebugNode_SnakeNestSmall
-DebugNode_StoneBig
-DebugNode_StoneSmall
-DebugNode_StormbirdNestBig
-DebugNode_StormbirdNestSmall
-DebugNode_SwampWheatBig
-DebugNode_SwampWheatSmall
-DebugNode_WormtongueNestBig
-DebugNode_WormtongueNestSmall
-Decay Altar
-Decay Altar Positive
-Distillery
-Druid
-Escaped Convicts
-Explorers Lodge
-Farmfield
-Fence
-Field Kitchen
-Finesmith
-Fire Shrine
-Fishmen Cave
-Fishmen Lighthouse
-Fishmen Lighthouse Positive
-Fishmen Outpost
-Fishmen Soothsayer
-Fishmen Totem
-Flawless Brewery
-Flawless Cellar
-Flawless Cooperage
-Flawless Druid
-Flawless Leatherworks
-Flawless Rain Mill
-Flawless Smelter
-Flower Bed
-Forager's Camp
-ForsakenCrypt
-Forum
-Fountain
-Fox Fence
-Fox Fence Corner
-Fox House
-FoxBattleground_T1
-Fuming Machinery
-Furnace
-Gate
-Giant Stormbird
-Glade Trader - The Hermit
-Glade Trader - The Seer
-Glade Trader - The Shaman
-Gold Stag
-Gold Treasure Stag
-Golden Leaf
-Granary
-Greenhouse Workshop
-Grill
-Grove
-Guild House
-Hallowed Herb Garden
-Hallowed SmallFarm
-Harmony Spirit Altar
-Harmony Spirit Altar Positive
-Harpy House
-HarpyBattleground_T1
-Harvester Camp
-Haunted Ruined Beaver House
-Haunted Ruined Brewery
-Haunted Ruined Cellar
-Haunted Ruined Cooperage
-Haunted Ruined Druid
-Haunted Ruined Fox House
-Haunted Ruined Harpy House
-Haunted Ruined Herb Garden
-Haunted Ruined Human House
-Haunted Ruined Leatherworks
-Haunted Ruined Lizard House
-Haunted Ruined Market
-Haunted Ruined Rainmill
-Haunted Ruined SmallFarm
-Haunted Ruined Smelter
-Haunted Ruined Temple
-Herb Garden
-Herbalist's Camp
-Holy Market
-Holy Temple
-Homestead
-Human House
-HumanBattleground_T1
-Hydrant
-Infected Mole
-Infected Tree
-Kelpie
-Kiln
-Lamp
-Leaking Cauldron
-Leatherworks
-Lightning Catcher
-Lizard House
-Lizard Post
-LizardBattleground_T1
-Lore Tablet 1
-Lore Tablet 2
-Lore Tablet 3
-Lore Tablet 4
-Lore Tablet 5
-Lore Tablet 6
-Lore Tablet 7
-Lumbermill
-Main Storage (not-buildable)
-Makeshift Post
-Manufactory
-Market
-Merchant Ship Wreck
-Mine
-Mistworm_T1
-Mole
-Monastery
-Monolith
-Monolith Positive
-Mushroom Decor
-Nightfern
-Noxious Machinery
-Path
-Paved Road
-PetrifiedTree_T1
-Pipe
-Pipe Cross
-Pipe Elbow
-Pipe End
-Pipe T Cross
-Pipe Valve
-Plantation
-Press
-Primitive Forager's Camp
-Primitive Herbalist's Camp
-Primitive Trapper's Camp
-Provisioner
-Purged Beaver House
-Purged Fox House
-Purged Harpy House
-Purged Human House
-Purged Lizard House
-Rain Catcher
-Rain Mill
-Rain Totem
-Rain Totem Positive
-Rainpunk Barrels
-Rainpunk Drill - Coal
-Rainpunk Drill - Copper
-Rainpunk Foundry
-RainpunkFactory
-Ranch
-Reinforced Road
-RewardChest_T1
-RewardChest_T2
-RewardChest_T3
-Road Sign
-Ruined Advanced Rain Catcher
-Ruined Advanced Rain Catcher (no reward)
-Ruined Alchemist
-Ruined Alchemist (no reward)
-Ruined Apothecary
-Ruined Apothecary (no reward)
-Ruined Artisan
-Ruined Artisan (no reward)
-Ruined Bakery
-Ruined Bakery (no reward)
-Ruined Bath House
-Ruined Bath House (no reward)
-Ruined Beanery
-Ruined Beanery (no reward)
-Ruined Beaver House
-Ruined Beaver House (no reward)
-Ruined Big Shelter
-Ruined Big Shelter (no reward)
-Ruined Brewery
-Ruined Brewery (no reward)
-Ruined Brick Oven
-Ruined Brick Oven (no reward)
-Ruined Brickyard
-Ruined Brickyard (no reward)
-Ruined Butcher
-Ruined Butcher (no reward)
-Ruined Carpenter
-Ruined Carpenter (no reward)
-Ruined Cellar
-Ruined Cellar (no reward)
-Ruined Clan Hall
-Ruined Clan Hall (no reward)
-Ruined Clay Pit
-Ruined Clay Pit (no reward)
-Ruined Cookhouse
-Ruined Cookhouse (no reward)
-Ruined Cooperage
-Ruined Cooperage (no reward)
-Ruined Crude Workstation (no reward)
-Ruined Distillery
-Ruined Distillery (no reward)
-Ruined Druid
-Ruined Druid (no reward)
-Ruined Explorers Lodge
-Ruined Explorers Lodge (no reward)
-Ruined Farm
-Ruined Farm (no reward)
-Ruined Field Kitchen (no reward)
-Ruined Finesmith
-Ruined Finesmith (no reward)
-Ruined Foragers Camp
-Ruined Foragers Camp (no reward)
-Ruined Foragers Camp Primitive (no reward)
-Ruined Forum
-Ruined Forum (no reward)
-Ruined Fox House
-Ruined Fox House (no reward)
-Ruined Furnace
-Ruined Furnace (no reward)
-Ruined Granary
-Ruined Granary (no reward)
-Ruined Greenhouse
-Ruined Greenhouse (no reward)
-Ruined Grill
-Ruined Grill (no reward)
-Ruined Grove
-Ruined Grove (no reward)
-Ruined Guild House
-Ruined Guild House (no reward)
-Ruined Harpy House
-Ruined Harpy House (no reward)
-Ruined Harvester Camp
-Ruined Harvester Camp (no reward)
-Ruined Hearth
-Ruined Hearth (no reward)
-Ruined Herb Garden
-Ruined Herb Garden (no reward)
-Ruined Herbalist Camp
-Ruined Herbalist Camp (no reward)
-Ruined Herbalist Camp primitive (no reward)
-Ruined Human House
-Ruined Human House (no reward)
-Ruined Kiln
-Ruined Kiln (no reward)
-Ruined Leatherworks
-Ruined Leatherworks (no reward)
-Ruined Lizard House
-Ruined Lizard House (no reward)
-Ruined Lumbermill
-Ruined Lumbermill (no reward)
-Ruined Makeshift Post (no reward)
-Ruined Manufatory
-Ruined Manufatory (no reward)
-Ruined Market
-Ruined Market (no reward)
-Ruined Mine (no reward)
-Ruined Monastery
-Ruined Monastery (no reward)
-Ruined Plantation
-Ruined Plantation (no reward)
-Ruined Press
-Ruined Press (no reward)
-Ruined Provisioner
-Ruined Provisioner (no reward)
-Ruined Rain Catcher (no reward)
-Ruined Rainmill
-Ruined Rainmill (no reward)
-Ruined Ranch
-Ruined Ranch (no reward)
-Ruined Scribe
-Ruined Scribe (no reward)
-Ruined Sewer
-Ruined Sewer (no reward)
-Ruined Shelter
-Ruined Shelter (no reward)
-Ruined SmallFarm
-Ruined SmallFarm (no reward)
-Ruined Smelter
-Ruined Smelter (no reward)
-Ruined Smithy
-Ruined Smithy (no reward)
-Ruined Smokehouse
-Ruined Smokehouse (no reward)
-Ruined Stamping Mill
-Ruined Stamping Mill (no reward)
-Ruined Stonecutter Camp
-Ruined Stonecutter Camp (no reward)
-Ruined Storage
-Ruined Storage (no reward)
-Ruined Supplier
-Ruined Supplier (no reward)
-Ruined Tavern
-Ruined Tavern (no reward)
-Ruined Tea Doctor
-Ruined Tea Doctor (no reward)
-Ruined Tea House
-Ruined Tea House (no reward)
-Ruined Temple
-Ruined Temple (no reward)
-Ruined Tinctury
-Ruined Tinctury (no reward)
-Ruined Tinkerer
-Ruined Tinkerer (no reward)
-Ruined Toolshop
-Ruined Toolshop (no reward)
-Ruined Trading Post (no reward)
-Ruined Trappers Camp
-Ruined Trappers Camp (no reward)
-Ruined Trappers Camp Primitive (no reward)
-Ruined Weaver
-Ruined Weaver (no reward)
-Ruined Woodcutters Camp
-Ruined Woodcutters Camp (no reward)
-Ruined Workshop
-Ruined Workshop (no reward)
-Sacrifice Totem
-Sacrifice Totem Positive
-Scarlet Decor
-Scorpion 1
-Scorpion 2
-Scorpion 3
-Scribe
-Seal
-Seal Guidepost
-Seal Low Diff
-Sealed Biome Shrine
-SealedTomb_T1
-Shelter
-Signboard
-Small Hearth
-SmallFarm
-Smelter
-Smithy
-Smokehouse
-Snake 1
-Snake 2
-Snake 3
-Spider 1
-Spider 2
-Spider 3
-Stamping Mill
-Stonecutter's Camp
-Storage (buildable)
-Stormbird Positive
-Supplier
-TI AncientShrine_T1
-Tavern
-Tea Doctor
-Tea House
-Temple
-Temporary Hearth (buildable)
-Temporary Hearth (not-buildable)
-Termite Burrow
-Termite Burrow Positive
-Tinctury
-Tinkerer
-Toolshop
-Tower
-Town Board
-Traders Cemetery
-Trading Post
-Trapper's Camp
-Umbrella
-Wall
-Wall Corner
-War Beast Cage
-Water Barrels
-Water Extractor
-Weaver
-Well
-White Stag
-White Treasure Stag
-Wildfire
-Woodcutters Camp
-Workshop
+# NOTE: category name in bracket is NOT part of building name
+[City Buildings] Altar
+[City Buildings] Archeology office
+[City Buildings] Bath House
+[City Buildings] Blight Post
+[City Buildings] Clan Hall
+[City Buildings] Explorers Lodge
+[City Buildings] Forum
+[City Buildings] Guild House
+[City Buildings] Holy Guild House
+[City Buildings] Holy Market
+[City Buildings] Holy Temple
+[City Buildings] Hydrant
+[City Buildings] Main Storage (not-buildable)
+[City Buildings] Market
+[City Buildings] Monastery
+[City Buildings] Port
+[City Buildings] Sealed Biome Shrine
+[City Buildings] Small Hearth
+[City Buildings] Storage (buildable)
+[City Buildings] Tavern
+[City Buildings] Tea Doctor
+[City Buildings] Temple
+[City Buildings] Temporary Hearth (buildable)
+[City Buildings] Trading Post
+[Debug Nodes] DebugNode_ClayBig
+[Debug Nodes] DebugNode_ClaySmall
+[Debug Nodes] DebugNode_DewberryBushBig
+[Debug Nodes] DebugNode_DewberryBushSmall
+[Debug Nodes] DebugNode_FlaxBig
+[Debug Nodes] DebugNode_FlaxSmall
+[Debug Nodes] DebugNode_HerbsBig
+[Debug Nodes] DebugNode_HerbsSmall
+[Debug Nodes] DebugNode_LeechBroodmotherBig
+[Debug Nodes] DebugNode_LeechBroodmotherSmall
+[Debug Nodes] DebugNode_MarshlandsMushroomBig
+[Debug Nodes] DebugNode_MarshlandsMushroomSmall
+[Debug Nodes] DebugNode_Marshlands_InfiniteGrain
+[Debug Nodes] DebugNode_Marshlands_InfiniteMeat
+[Debug Nodes] DebugNode_Marshlands_InfiniteMushroom
+[Debug Nodes] DebugNode_MossBroccoliBig
+[Debug Nodes] DebugNode_MossBroccoliSmall
+[Debug Nodes] DebugNode_MushroomBig
+[Debug Nodes] DebugNode_MushroomSmall
+[Debug Nodes] DebugNode_ReedBig
+[Debug Nodes] DebugNode_ReedSmall
+[Debug Nodes] DebugNode_RootsBig
+[Debug Nodes] DebugNode_RootsSmall
+[Debug Nodes] DebugNode_SeaMarrowBig
+[Debug Nodes] DebugNode_SeaMarrowSmall
+[Debug Nodes] DebugNode_SnailBroodmotherBig
+[Debug Nodes] DebugNode_SnailBroodmotherSmall
+[Debug Nodes] DebugNode_SnakeNestBig
+[Debug Nodes] DebugNode_SnakeNestSmall
+[Debug Nodes] DebugNode_StoneBig
+[Debug Nodes] DebugNode_StoneSmall
+[Debug Nodes] DebugNode_StormbirdNestBig
+[Debug Nodes] DebugNode_StormbirdNestSmall
+[Debug Nodes] DebugNode_SwampWheatBig
+[Debug Nodes] DebugNode_SwampWheatSmall
+[Debug Nodes] DebugNode_WormtongueNestBig
+[Debug Nodes] DebugNode_WormtongueNestSmall
+[Decorations] Aestherics 2x2 - Garden
+[Decorations] Aestherics 2x2 - Groundwater Extractor
+[Decorations] Ancient Gravestone
+[Decorations] Anvil
+[Decorations] Arch
+[Decorations] Archaeology Scorpion Positive
+[Decorations] Archaeology Snake Positive
+[Decorations] Archaeology Spider Positive
+[Decorations] Bank
+[Decorations] Barrels
+[Decorations] Bonfire
+[Decorations] Bush
+[Decorations] Cages
+[Decorations] Chest
+[Decorations] Coastal Grove Plant
+[Decorations] Comfort 2x2 - Park
+[Decorations] Coral Decor
+[Decorations] CornerFence
+[Decorations] Crates
+[Decorations] Decay Altar Positive
+[Decorations] Fence
+[Decorations] Fire Shrine
+[Decorations] Fish
+[Decorations] Fishmen Lighthouse Positive
+[Decorations] Flower Bed
+[Decorations] Fountain
+[Decorations] Fox Fence
+[Decorations] Fox Fence Corner
+[Decorations] Frog Tree
+[Decorations] Gate
+[Decorations] Golden Leaf
+[Decorations] Harmony Spirit Altar Positive
+[Decorations] Lamp
+[Decorations] Lizard Post
+[Decorations] Monolith Positive
+[Decorations] Moument of Greed
+[Decorations] Mushroom Decor
+[Decorations] Nightfern
+[Decorations] Ornate Column
+[Decorations] Pipe
+[Decorations] Pipe Cross
+[Decorations] Pipe Elbow
+[Decorations] Pipe End
+[Decorations] Pipe T Cross
+[Decorations] Pipe Valve
+[Decorations] Rain Totem Positive
+[Decorations] Rainpunk Barrels
+[Decorations] Road Sign
+[Decorations] Sacrifice Totem Positive
+[Decorations] Scarlet Decor
+[Decorations] Signboard
+[Decorations] Stone Fence
+[Decorations] Stone Fence Corner
+[Decorations] Stormbird Positive
+[Decorations] Termite Burrow Positive
+[Decorations] Tower
+[Decorations] Town Board
+[Decorations] Umbrella
+[Decorations] Wall
+[Decorations] Wall Corner
+[Decorations] Water Barrels
+[Decorations] Water Shrine
+[Decorations] Well
+[Event Ghost] Angry Ghost 1
+[Event Ghost] Angry Ghost 10
+[Event Ghost] Angry Ghost 14
+[Event Ghost] Angry Ghost 15
+[Event Ghost] Angry Ghost 16
+[Event Ghost] Angry Ghost 17
+[Event Ghost] Angry Ghost 18
+[Event Ghost] Angry Ghost 19
+[Event Ghost] Angry Ghost 2
+[Event Ghost] Angry Ghost 20
+[Event Ghost] Angry Ghost 21
+[Event Ghost] Angry Ghost 24
+[Event Ghost] Angry Ghost 31
+[Event Ghost] Angry Ghost 32
+[Event Ghost] Angry Ghost 34
+[Event Ghost] Angry Ghost 4
+[Event Ghost] Angry Ghost 41
+[Event Ghost] Angry Ghost 5
+[Event Ghost] Angry Ghost 6
+[Event Ghost] Angry Ghost 9
+[Event Ghost] Calm Ghost 11
+[Event Ghost] Calm Ghost 12
+[Event Ghost] Calm Ghost 13
+[Event Ghost] Calm Ghost 22
+[Event Ghost] Calm Ghost 23
+[Event Ghost] Calm Ghost 25
+[Event Ghost] Calm Ghost 26
+[Event Ghost] Calm Ghost 27
+[Event Ghost] Calm Ghost 28
+[Event Ghost] Calm Ghost 29
+[Event Ghost] Calm Ghost 3
+[Event Ghost] Calm Ghost 30
+[Event Ghost] Calm Ghost 33
+[Event Ghost] Calm Ghost 35
+[Event Ghost] Calm Ghost 36
+[Event Ghost] Calm Ghost 38
+[Event Ghost] Calm Ghost 39
+[Event Ghost] Calm Ghost 40
+[Event Ghost] Calm Ghost 7
+[Event Ghost] Calm Ghost 8
+[Event] AncientBurrialGrounds
+[Event] AncientGate
+[Event] AncientShrine_T1
+[Event] AncientTemple
+[Event] AngryGhostChest_T1
+[Event] BeaverBattleground_T1
+[Event] Black Stag
+[Event] Black Treasure Stag
+[Event] Blightrot
+[Event] Blightrot - Clone
+[Event] Blightrot Cauldron
+[Event] CalmGhostChest_T1
+[Event] Camp_T1
+[Event] Camp_T2
+[Event] Caravan_T1
+[Event] Caravan_T2
+[Event] Corrupted Caravan
+[Event] Decay Altar
+[Event] Escaped Convicts
+[Event] Fishmen Cave
+[Event] Fishmen Lighthouse
+[Event] Fishmen Outpost
+[Event] Fishmen Soothsayer
+[Event] Fishmen Totem
+[Event] ForsakenCrypt
+[Event] FoxBattleground_T1
+[Event] FrogBattleground_T1
+[Event] Fuming Machinery
+[Event] Giant Stormbird
+[Event] Glade Trader - The Hermit
+[Event] Glade Trader - The Seer
+[Event] Glade Trader - The Shaman
+[Event] Gold Stag
+[Event] Gold Treasure Stag
+[Event] Harmony Spirit Altar
+[Event] HarpyBattleground_T1
+[Event] HumanBattleground_T1
+[Event] Infected Mole
+[Event] Infected Tree
+[Event] Kelpie
+[Event] Leaking Cauldron
+[Event] Lightning Catcher
+[Event] LizardBattleground_T1
+[Event] Merchant Ship Wreck
+[Event] Mistworm_T1
+[Event] Mole
+[Event] Monolith
+[Event] Noxious Machinery
+[Event] PetrifiedTree_T1
+[Event] Rain Totem
+[Event] Rainpunk Drill - Coal
+[Event] Rainpunk Drill - Copper
+[Event] RainpunkFactory
+[Event] RewardChest_T1
+[Event] RewardChest_T2
+[Event] RewardChest_T3
+[Event] Sacrifice Totem
+[Event] Scorpion 1
+[Event] Scorpion 2
+[Event] Scorpion 3
+[Event] Seal
+[Event] Seal High Diff
+[Event] Seal Low Diff
+[Event] SealedTomb_T1
+[Event] Snake 1
+[Event] Snake 2
+[Event] Snake 3
+[Event] Spider 1
+[Event] Spider 2
+[Event] Spider 3
+[Event] TI AncientShrine_T1
+[Event] Termite Burrow
+[Event] Traders Cemetery
+[Event] War Beast Cage
+[Event] White Stag
+[Event] White Treasure Stag
+[Event] Wildfire
+[Food Production] Apothecary
+[Food Production] Bakery
+[Food Production] Beanery
+[Food Production] Butcher
+[Food Production] Cellar
+[Food Production] Cookhouse
+[Food Production] Farmfield
+[Food Production] Field Kitchen
+[Food Production] Flawless Cellar
+[Food Production] Flawless Rain Mill
+[Food Production] Furnace
+[Food Production] Granary
+[Food Production] Greenhouse Workshop
+[Food Production] Grill
+[Food Production] Grove
+[Food Production] Hallowed Herb Garden
+[Food Production] Hallowed SmallFarm
+[Food Production] Herb Garden
+[Food Production] Homestead
+[Food Production] Pantry
+[Food Production] Plantation
+[Food Production] Rain Mill
+[Food Production] Ranch
+[Food Production] SmallFarm
+[Food Production] Smokehouse
+[Housing] Beaver House
+[Housing] Big Shelter
+[Housing] Fox House
+[Housing] Frog House
+[Housing] Harpy House
+[Housing] Human House
+[Housing] Lizard House
+[Housing] Purged Beaver House
+[Housing] Purged Fox House
+[Housing] Purged Frog House
+[Housing] Purged Harpy House
+[Housing] Purged Human House
+[Housing] Purged Lizard House
+[Housing] Shelter
+[Industry] Alchemist Hut
+[Industry] Artisan
+[Industry] Brewery
+[Industry] Brick Oven
+[Industry] Brickyard
+[Industry] Cannery
+[Industry] Carpenter
+[Industry] Clothier
+[Industry] Cobbler
+[Industry] Cooperage
+[Industry] Crude Workstation
+[Industry] Distillery
+[Industry] Druid
+[Industry] Finesmith
+[Industry] Flawless Brewery
+[Industry] Flawless Cooperage
+[Industry] Flawless Druid
+[Industry] Flawless Leatherworks
+[Industry] Flawless Smelter
+[Industry] Kiln
+[Industry] Leatherworks
+[Industry] Lumbermill
+[Industry] Makeshift Post
+[Industry] Manufactory
+[Industry] Press
+[Industry] Provisioner
+[Industry] Rainpunk Foundry
+[Industry] Scribe
+[Industry] Smelter
+[Industry] Smithy
+[Industry] Stamping Mill
+[Industry] Supplier
+[Industry] Tea House
+[Industry] Tinctury
+[Industry] Tinkerer
+[Industry] Toolshop
+[Industry] Weaver
+[Industry] Workshop
+[Lore Tablet 1] Lore Tablet 1
+[Lore Tablet 2] Lore Tablet 2
+[Lore Tablet 3] Lore Tablet 3
+[Lore Tablet 4] Lore Tablet 4
+[Lore Tablet 5] Lore Tablet 5
+[Lore Tablet 6] Lore Tablet 6
+[Lore Tablet 7] Lore Tablet 7
+[Relics] Seal Guidepost
+[Resource Gathering] Advanced Rain Catcher
+[Resource Gathering] Clay Pit Workshop
+[Resource Gathering] Fishing Hut
+[Resource Gathering] Forager's Camp
+[Resource Gathering] Harvester Camp
+[Resource Gathering] Herbalist's Camp
+[Resource Gathering] Mine
+[Resource Gathering] Primitive Fishing Hut
+[Resource Gathering] Primitive Forager's Camp
+[Resource Gathering] Primitive Herbalist's Camp
+[Resource Gathering] Primitive Trapper's Camp
+[Resource Gathering] Rain Catcher
+[Resource Gathering] Stonecutter's Camp
+[Resource Gathering] Trapper's Camp
+[Resource Gathering] Water Extractor
+[Resource Gathering] Woodcutters Camp
+[Roads] Path
+[Roads] Paved Road
+[Roads] Reinforced Road
+[Ruins] Haunted Ruined Beaver House
+[Ruins] Haunted Ruined Brewery
+[Ruins] Haunted Ruined Cellar
+[Ruins] Haunted Ruined Cooperage
+[Ruins] Haunted Ruined Druid
+[Ruins] Haunted Ruined Fox House
+[Ruins] Haunted Ruined Frog House
+[Ruins] Haunted Ruined Guild House
+[Ruins] Haunted Ruined Harpy House
+[Ruins] Haunted Ruined Herb Garden
+[Ruins] Haunted Ruined Human House
+[Ruins] Haunted Ruined Leatherworks
+[Ruins] Haunted Ruined Lizard House
+[Ruins] Haunted Ruined Market
+[Ruins] Haunted Ruined Rainmill
+[Ruins] Haunted Ruined SmallFarm
+[Ruins] Haunted Ruined Smelter
+[Ruins] Haunted Ruined Temple
+[Ruins] Ruined Advanced Rain Catcher
+[Ruins] Ruined Advanced Rain Catcher (no reward)
+[Ruins] Ruined Alchemist
+[Ruins] Ruined Alchemist (no reward)
+[Ruins] Ruined Apothecary
+[Ruins] Ruined Apothecary (no reward)
+[Ruins] Ruined Artisan
+[Ruins] Ruined Artisan (no reward)
+[Ruins] Ruined Bakery
+[Ruins] Ruined Bakery (no reward)
+[Ruins] Ruined Bath House
+[Ruins] Ruined Bath House (no reward)
+[Ruins] Ruined Beanery
+[Ruins] Ruined Beanery (no reward)
+[Ruins] Ruined Beaver House
+[Ruins] Ruined Beaver House (no reward)
+[Ruins] Ruined Big Shelter
+[Ruins] Ruined Big Shelter (no reward)
+[Ruins] Ruined Brewery
+[Ruins] Ruined Brewery (no reward)
+[Ruins] Ruined Brick Oven
+[Ruins] Ruined Brick Oven (no reward)
+[Ruins] Ruined Brickyard
+[Ruins] Ruined Brickyard (no reward)
+[Ruins] Ruined Butcher
+[Ruins] Ruined Butcher (no reward)
+[Ruins] Ruined Cannery
+[Ruins] Ruined Cannery (no reward)
+[Ruins] Ruined Carpenter
+[Ruins] Ruined Carpenter (no reward)
+[Ruins] Ruined Cellar
+[Ruins] Ruined Cellar (no reward)
+[Ruins] Ruined Clan Hall
+[Ruins] Ruined Clan Hall (no reward)
+[Ruins] Ruined Clay Pit
+[Ruins] Ruined Clay Pit (no reward)
+[Ruins] Ruined Cobbler
+[Ruins] Ruined Cobbler (no reward)
+[Ruins] Ruined Cookhouse
+[Ruins] Ruined Cookhouse (no reward)
+[Ruins] Ruined Cooperage
+[Ruins] Ruined Cooperage (no reward)
+[Ruins] Ruined Crude Workstation (no reward)
+[Ruins] Ruined Distillery
+[Ruins] Ruined Distillery (no reward)
+[Ruins] Ruined Druid
+[Ruins] Ruined Druid (no reward)
+[Ruins] Ruined Explorers Lodge
+[Ruins] Ruined Explorers Lodge (no reward)
+[Ruins] Ruined Farm
+[Ruins] Ruined Farm (no reward)
+[Ruins] Ruined Field Kitchen (no reward)
+[Ruins] Ruined Finesmith
+[Ruins] Ruined Finesmith (no reward)
+[Ruins] Ruined Fishing Hut
+[Ruins] Ruined Fishing Hut (no reward)
+[Ruins] Ruined Fishing Hut Primitive (no reward)
+[Ruins] Ruined Foragers Camp
+[Ruins] Ruined Foragers Camp (no reward)
+[Ruins] Ruined Foragers Camp Primitive (no reward)
+[Ruins] Ruined Forum
+[Ruins] Ruined Forum (no reward)
+[Ruins] Ruined Fox House
+[Ruins] Ruined Fox House (no reward)
+[Ruins] Ruined Frog House (no reward)
+[Ruins] Ruined Furnace
+[Ruins] Ruined Furnace (no reward)
+[Ruins] Ruined Granary
+[Ruins] Ruined Granary (no reward)
+[Ruins] Ruined Greenhouse
+[Ruins] Ruined Greenhouse (no reward)
+[Ruins] Ruined Grill
+[Ruins] Ruined Grill (no reward)
+[Ruins] Ruined Grove
+[Ruins] Ruined Grove (no reward)
+[Ruins] Ruined Guild House
+[Ruins] Ruined Guild House (no reward)
+[Ruins] Ruined Harpy House
+[Ruins] Ruined Harpy House (no reward)
+[Ruins] Ruined Harvester Camp
+[Ruins] Ruined Harvester Camp (no reward)
+[Ruins] Ruined Herb Garden
+[Ruins] Ruined Herb Garden (no reward)
+[Ruins] Ruined Herbalist Camp
+[Ruins] Ruined Herbalist Camp (no reward)
+[Ruins] Ruined Herbalist Camp primitive (no reward)
+[Ruins] Ruined Human House
+[Ruins] Ruined Human House (no reward)
+[Ruins] Ruined Kiln
+[Ruins] Ruined Kiln (no reward)
+[Ruins] Ruined Leatherworks
+[Ruins] Ruined Leatherworks (no reward)
+[Ruins] Ruined Lizard House
+[Ruins] Ruined Lizard House (no reward)
+[Ruins] Ruined Lumbermill
+[Ruins] Ruined Lumbermill (no reward)
+[Ruins] Ruined Makeshift Post (no reward)
+[Ruins] Ruined Manufatory
+[Ruins] Ruined Manufatory (no reward)
+[Ruins] Ruined Market
+[Ruins] Ruined Market (no reward)
+[Ruins] Ruined Mine (no reward)
+[Ruins] Ruined Monastery
+[Ruins] Ruined Monastery (no reward)
+[Ruins] Ruined Pantry
+[Ruins] Ruined Pantry (no reward)
+[Ruins] Ruined Plantation
+[Ruins] Ruined Plantation (no reward)
+[Ruins] Ruined Press
+[Ruins] Ruined Press (no reward)
+[Ruins] Ruined Provisioner
+[Ruins] Ruined Provisioner (no reward)
+[Ruins] Ruined Rain Catcher (no reward)
+[Ruins] Ruined Rainmill
+[Ruins] Ruined Rainmill (no reward)
+[Ruins] Ruined Ranch
+[Ruins] Ruined Ranch (no reward)
+[Ruins] Ruined Scribe
+[Ruins] Ruined Scribe (no reward)
+[Ruins] Ruined Sewer
+[Ruins] Ruined Sewer (no reward)
+[Ruins] Ruined Shelter
+[Ruins] Ruined Shelter (no reward)
+[Ruins] Ruined SmallFarm
+[Ruins] Ruined SmallFarm (no reward)
+[Ruins] Ruined Smelter
+[Ruins] Ruined Smelter (no reward)
+[Ruins] Ruined Smithy
+[Ruins] Ruined Smithy (no reward)
+[Ruins] Ruined Smokehouse
+[Ruins] Ruined Smokehouse (no reward)
+[Ruins] Ruined Stamping Mill
+[Ruins] Ruined Stamping Mill (no reward)
+[Ruins] Ruined Stonecutter Camp
+[Ruins] Ruined Stonecutter Camp (no reward)
+[Ruins] Ruined Storage
+[Ruins] Ruined Storage (no reward)
+[Ruins] Ruined Supplier
+[Ruins] Ruined Supplier (no reward)
+[Ruins] Ruined Tavern
+[Ruins] Ruined Tavern (no reward)
+[Ruins] Ruined Tea Doctor
+[Ruins] Ruined Tea Doctor (no reward)
+[Ruins] Ruined Tea House
+[Ruins] Ruined Tea House (no reward)
+[Ruins] Ruined Temple
+[Ruins] Ruined Temple (no reward)
+[Ruins] Ruined Tinctury
+[Ruins] Ruined Tinctury (no reward)
+[Ruins] Ruined Tinkerer
+[Ruins] Ruined Tinkerer (no reward)
+[Ruins] Ruined Toolshop
+[Ruins] Ruined Toolshop (no reward)
+[Ruins] Ruined Trading Post (no reward)
+[Ruins] Ruined Trappers Camp
+[Ruins] Ruined Trappers Camp (no reward)
+[Ruins] Ruined Trappers Camp Primitive (no reward)
+[Ruins] Ruined Weaver
+[Ruins] Ruined Weaver (no reward)
+[Ruins] Ruined Woodcutters Camp
+[Ruins] Ruined Woodcutters Camp (no reward)
+[Ruins] Ruined Workshop
+[Ruins] Ruined Workshop (no reward)
+[Tutorial - invisible] Temporary Hearth (not-buildable)

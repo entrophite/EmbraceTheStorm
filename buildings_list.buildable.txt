@@ -1,0 +1,184 @@
+# NOTE: category name in bracket is NOT part of building name
+[City Buildings] Altar
+[City Buildings] Archeology office
+[City Buildings] Bath House
+[City Buildings] Blight Post
+[City Buildings] Clan Hall
+[City Buildings] Explorers Lodge
+[City Buildings] Forum
+[City Buildings] Guild House
+[City Buildings] Holy Guild House
+[City Buildings] Holy Market
+[City Buildings] Holy Temple
+[City Buildings] Hydrant
+[City Buildings] Main Storage (not-buildable)
+[City Buildings] Market
+[City Buildings] Monastery
+[City Buildings] Port
+[City Buildings] Sealed Biome Shrine
+[City Buildings] Small Hearth
+[City Buildings] Storage (buildable)
+[City Buildings] Tavern
+[City Buildings] Tea Doctor
+[City Buildings] Temple
+[City Buildings] Temporary Hearth (buildable)
+[City Buildings] Trading Post
+[Decorations] Aestherics 2x2 - Garden
+[Decorations] Aestherics 2x2 - Groundwater Extractor
+[Decorations] Ancient Gravestone
+[Decorations] Anvil
+[Decorations] Arch
+[Decorations] Archaeology Scorpion Positive
+[Decorations] Archaeology Snake Positive
+[Decorations] Archaeology Spider Positive
+[Decorations] Bank
+[Decorations] Barrels
+[Decorations] Bonfire
+[Decorations] Bush
+[Decorations] Cages
+[Decorations] Chest
+[Decorations] Coastal Grove Plant
+[Decorations] Comfort 2x2 - Park
+[Decorations] Coral Decor
+[Decorations] CornerFence
+[Decorations] Crates
+[Decorations] Decay Altar Positive
+[Decorations] Fence
+[Decorations] Fire Shrine
+[Decorations] Fish
+[Decorations] Fishmen Lighthouse Positive
+[Decorations] Flower Bed
+[Decorations] Fountain
+[Decorations] Fox Fence
+[Decorations] Fox Fence Corner
+[Decorations] Frog Tree
+[Decorations] Gate
+[Decorations] Golden Leaf
+[Decorations] Harmony Spirit Altar Positive
+[Decorations] Lamp
+[Decorations] Lizard Post
+[Decorations] Monolith Positive
+[Decorations] Moument of Greed
+[Decorations] Mushroom Decor
+[Decorations] Nightfern
+[Decorations] Ornate Column
+[Decorations] Pipe
+[Decorations] Pipe Cross
+[Decorations] Pipe Elbow
+[Decorations] Pipe End
+[Decorations] Pipe T Cross
+[Decorations] Pipe Valve
+[Decorations] Rain Totem Positive
+[Decorations] Rainpunk Barrels
+[Decorations] Road Sign
+[Decorations] Sacrifice Totem Positive
+[Decorations] Scarlet Decor
+[Decorations] Signboard
+[Decorations] Stone Fence
+[Decorations] Stone Fence Corner
+[Decorations] Stormbird Positive
+[Decorations] Termite Burrow Positive
+[Decorations] Tower
+[Decorations] Town Board
+[Decorations] Umbrella
+[Decorations] Wall
+[Decorations] Wall Corner
+[Decorations] Water Barrels
+[Decorations] Water Shrine
+[Decorations] Well
+[Food Production] Apothecary
+[Food Production] Bakery
+[Food Production] Beanery
+[Food Production] Butcher
+[Food Production] Cellar
+[Food Production] Cookhouse
+[Food Production] Farmfield
+[Food Production] Field Kitchen
+[Food Production] Flawless Cellar
+[Food Production] Flawless Rain Mill
+[Food Production] Furnace
+[Food Production] Granary
+[Food Production] Greenhouse Workshop
+[Food Production] Grill
+[Food Production] Grove
+[Food Production] Hallowed Herb Garden
+[Food Production] Hallowed SmallFarm
+[Food Production] Herb Garden
+[Food Production] Homestead
+[Food Production] Pantry
+[Food Production] Plantation
+[Food Production] Rain Mill
+[Food Production] Ranch
+[Food Production] SmallFarm
+[Food Production] Smokehouse
+[Housing] Beaver House
+[Housing] Big Shelter
+[Housing] Fox House
+[Housing] Frog House
+[Housing] Harpy House
+[Housing] Human House
+[Housing] Lizard House
+[Housing] Purged Beaver House
+[Housing] Purged Fox House
+[Housing] Purged Frog House
+[Housing] Purged Harpy House
+[Housing] Purged Human House
+[Housing] Purged Lizard House
+[Housing] Shelter
+[Industry] Alchemist Hut
+[Industry] Artisan
+[Industry] Brewery
+[Industry] Brick Oven
+[Industry] Brickyard
+[Industry] Cannery
+[Industry] Carpenter
+[Industry] Clothier
+[Industry] Cobbler
+[Industry] Cooperage
+[Industry] Crude Workstation
+[Industry] Distillery
+[Industry] Druid
+[Industry] Finesmith
+[Industry] Flawless Brewery
+[Industry] Flawless Cooperage
+[Industry] Flawless Druid
+[Industry] Flawless Leatherworks
+[Industry] Flawless Smelter
+[Industry] Kiln
+[Industry] Leatherworks
+[Industry] Lumbermill
+[Industry] Makeshift Post
+[Industry] Manufactory
+[Industry] Press
+[Industry] Provisioner
+[Industry] Rainpunk Foundry
+[Industry] Scribe
+[Industry] Smelter
+[Industry] Smithy
+[Industry] Stamping Mill
+[Industry] Supplier
+[Industry] Tea House
+[Industry] Tinctury
+[Industry] Tinkerer
+[Industry] Toolshop
+[Industry] Weaver
+[Industry] Workshop
+[Resource Gathering] Advanced Rain Catcher
+[Resource Gathering] Clay Pit Workshop
+[Resource Gathering] Fishing Hut
+[Resource Gathering] Forager's Camp
+[Resource Gathering] Harvester Camp
+[Resource Gathering] Herbalist's Camp
+[Resource Gathering] Mine
+[Resource Gathering] Primitive Fishing Hut
+[Resource Gathering] Primitive Forager's Camp
+[Resource Gathering] Primitive Herbalist's Camp
+[Resource Gathering] Primitive Trapper's Camp
+[Resource Gathering] Rain Catcher
+[Resource Gathering] Stonecutter's Camp
+[Resource Gathering] Trapper's Camp
+[Resource Gathering] Water Extractor
+[Resource Gathering] Woodcutters Camp
+[Roads] Path
+[Roads] Paved Road
+[Roads] Reinforced Road

@@ -8,30 +8,25 @@ These are my note for statically injected code to alter the gameplay of *Against
 
 ### 1.1. Hostility
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the number of hostility points per level (the hostility progression bar "size" of each level) while still keep tracking the total hostility points gained. In the example below the bar size is set to the sum of points required to reach the maximum level in the original game. The bar size hence scales with difficulty, e.g. 3100 per level in Viceroy+ (since max level is 31) and 600 in Settler (max level is 6).
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying the number of hostility points per level (the hostility progression bar "size" of each level) while still keep tracking the total hostility points gained, 10000 in the example below.
 
 ```c#
 // Eremite.Services.HostilityService.GetPointsForNextLevel
 public int GetPointsForNextLevel()
 {
-	int num = 0;
-	for (int i = 0; i < this.Difficulty.levels.Length; i++)
-	{
-		num += this.Difficulty.levels[i].pointsToLeave;
-	}
-	return num;
+	//return this.Difficulty.levels[this.State.level].pointsToLeave;
+	return 10000;
 }
 
 // Eremite.Services.HostilityService.GetPointsForPrevLevel
 public int GetPointsForPrevLevel()
 {
-	bool assertions = DebugModes.Assertions;
-	int num = 0;
-	for (int i = 0; i < this.Difficulty.levels.Length; i++)
+	if (DebugModes.Assertions)
 	{
-		num += this.Difficulty.levels[i].pointsToLeave;
+		Assert.IsFalse(this.IsFirstLevel(), "Can't go below first level!");
 	}
-	return num;
+	//return this.Difficulty.levels[this.State.level - 1].pointsToLeave;
+	return 10000;
 }
 ```
 
@@ -52,7 +47,7 @@ public void AddReputationPenalty(float amount, ReputationChangeSource type, bool
 	{
 		return;
 	}
-	amount = amount > 0 ? amount * 0.1f : amount;
+	amount = amount > 0 ? amount * 0.1f : amount; // insert
 	this.State.reputationPenalty = Mathf.Clamp(this.State.reputationPenalty + amount, 0f, (float)this.GetReputationPenaltyToLoose());
 	this.ReputationPenalty.Value = this.State.reputationPenalty;
 	this.reputationPenaltyChangedSubject.OnNext(new ReputationChange(amount, reason, type));
@@ -68,6 +63,7 @@ public void AddReputationPenalty(float amount, ReputationChangeSource type, bool
 // Eremite.Services.BlightService.CalculateFrameCorruption
 public float CalculateFrameCorruption()
 {
+	//return Serviceable.BlightService.GetGlobalCorruptionPerSec() * Time.deltaTime;
 	return Serviceable.BlightService.GetGlobalCorruptionPerSec() * Time.deltaTime * 0.1f;
 }
 ```
@@ -80,7 +76,8 @@ public float CalculateFrameCorruption()
 // Eremite.Services.EffectsService.IsMovingAllBuildingsEnabled
 public bool IsMovingAllBuildingsEnabled()
 {
-	return this.Effects.movingAllBuildingsEnablers.Count > 0 || true;
+	//return this.Effects.movingAllBuildingsEnablers.Count > 0;
+	return true;
 }
 ```
 
@@ -94,7 +91,8 @@ public bool IsMovingAllBuildingsEnabled()
 // no need to change the overload version of CanBeMoved(Building building); since it always calls CanBeMoved(BuildingModel model) internally and will always return true if the latter always returns true.
 public bool CanBeMoved(BuildingModel model)
 {
-	return (Serviceable.IsDebugMode && DebugModes.Construction) || (!Serviceable.EffectsService.IsMovingBuildingsBlocked() && ((Serviceable.EffectsService.IsMovingAllBuildingsEnabled() && model.movableWithEffects) || model.movable)) || true;
+	//return (Serviceable.IsDebugMode && DebugModes.Construction) || (!Serviceable.EffectsService.IsMovingBuildingsBlocked() && ((Serviceable.EffectsService.IsMovingAllBuildingsEnabled() && model.movableWithEffects) || model.movable));
+	return true;
 }
 
 // Eremite.Buildings.Hearth.IsTooCloseToOtherHearth
@@ -108,9 +106,17 @@ private bool IsTooCloseToOtherHearth()
 	this.RecalculateArea();
 	foreach (HearthState hearthState in GameMB.StateService.Buildings.hearths)
 	{
+		//Hearth hearth = GameMB.BuildingsService.GetBuilding(hearthState.id) as Hearth;
+		//foreach (Vector2Int field in this.area)
+		//{
+		//	if (hearth.IsInRange(field))
+		//	{
+		//		return true;
+		//	}
+		//}
 		if (!hearthState.lifted)
 		{
-			Hearth hearth = GameMB.BuildingsService.GetBuildingOrConstruction(hearthState.id) as Hearth;
+			Hearth hearth = GameMB.BuildingsService.GetBuilding(hearthState.id) as Hearth;
 			foreach (Vector2Int field in this.area)
 			{
 				if (hearth.IsInRange(field))
@@ -120,7 +126,6 @@ private bool IsTooCloseToOtherHearth()
 			}
 		}
 	}
-	return false;
 }
 ```
 
@@ -132,27 +137,30 @@ private bool IsTooCloseToOtherHearth()
 // Eremite.Services.EffectsService.GetRelicWorkingTime
 public float GetRelicWorkingTime(float baseTime, Relic relic)
 {
+	//return baseTime * (1f / Mathf.Clamp(this.GetRelicsWorkingRate(relic), this.PerksConfig.minRelicsWorkingTimeRate, this.PerksConfig.maxRelicsWorkingTimeRate));
 	return baseTime * (1f / Mathf.Clamp(this.GetRelicsWorkingRate(relic), this.PerksConfig.minRelicsWorkingTimeRate, this.PerksConfig.maxRelicsWorkingTimeRate)) * 0.2f;
 }
 ```
 
 ### 1.5. House capacity
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying capacity for each house, 2x in the example below. This capacity modifier scales other in-game bonuses as well, e.g. +1 bonus in game will have an final effect of +2 capacity under this modifier.
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying capacity for each house, 3x in the example below. This capacity modifier scales other in-game bonuses as well, e.g. +1 bonus.
 
 ```c#
 // Eremite.Services.EffectsService.GetHouseCapacity
 // this function overload works at per-house basis, e.g. taking care of haunted houses
 public int GetHouseCapacity(House house)
 {
-	return Mathf.Clamp(house.model.housingPlaces + house.state.bonusCapacity + this.Effects.globalHousesBonusCapacity + this.Effects.housesBonusCapacity.GetSafe(house.ModelName), this.PerksConfig.minHousesSlots, this.PerksConfig.maxHousesSlots) * 2;
+	//return Mathf.Clamp(house.model.housingPlaces + house.state.bonusCapacity + this.Effects.globalHousesBonusCapacity + this.Effects.housesBonusCapacity.GetSafe(house.ModelName), this.PerksConfig.minHousesSlots, this.PerksConfig.maxHousesSlots);
+	return Mathf.Clamp(house.model.housingPlaces + house.state.bonusCapacity + this.Effects.globalHousesBonusCapacity + this.Effects.housesBonusCapacity.GetSafe(house.ModelName), this.PerksConfig.minHousesSlots, this.PerksConfig.maxHousesSlots) * 3;
 }
 
 // Eremite.Services.EffectsService.GetHouseCapacity
 // this function overload works at house prototype basis, e.g. taking care of preview and encycropedia
 public int GetHouseCapacity(HouseModel house)
 {
-	return Mathf.Clamp(house.housingPlaces + this.Effects.globalHousesBonusCapacity + this.Effects.housesBonusCapacity.GetSafe(house.Name), this.PerksConfig.minHousesSlots, this.PerksConfig.maxHousesSlots) * 2;
+	//return Mathf.Clamp(house.housingPlaces + this.Effects.globalHousesBonusCapacity + this.Effects.housesBonusCapacity.GetSafe(house.Name), this.PerksConfig.minHousesSlots, this.PerksConfig.maxHousesSlots);
+	return Mathf.Clamp(house.housingPlaces + this.Effects.globalHousesBonusCapacity + this.Effects.housesBonusCapacity.GetSafe(house.Name), this.PerksConfig.minHousesSlots, this.PerksConfig.maxHousesSlots) * 3;
 }
 ```
 
@@ -164,6 +172,7 @@ public int GetHouseCapacity(HouseModel house)
 // Eremite.Services.TradeService.GetValueInCurrency
 public float GetValueInCurrency(string name, int amount)
 {
+	//return this.RoundTradeValue(Serviceable.EffectsService.GetTraderSellPriceFor(name) / this.GetTradeCurrencyValue(), amount);
 	return this.RoundTradeValue(Serviceable.EffectsService.GetTraderSellPriceFor(name) / this.GetTradeCurrencyValue() * 10f, amount);
 }
 ```
@@ -173,11 +182,12 @@ public float GetValueInCurrency(string name, int amount)
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying sell price of goods to traders to greatly enhances trading experience, 10x worth of value in the example below.
 
 ```c#
-// Eremite.Services.TradeService.GetValueInCurrency
+// Eremite.Services.TradeRoutesGenerator.GetPriceFor
 private int GetPriceFor(float goodTradeValue, TradeTownState town)
 {
 	float num = goodTradeValue / Serviceable.TradeService.GetTradeCurrencyValue();
 	num *= 1f + (float)town.standingLevel * this.Config.basePricePerStandingFactor;
+	//return Mathf.Max(1, Mathf.RoundToInt(num * this.Config.basePriceFactor * this.factorsCache[this.PriceFactorIndex]));
 	return Mathf.Max(1, Mathf.RoundToInt(num * this.Config.basePriceFactor * this.factorsCache[this.PriceFactorIndex])) * 10;
 }
 ```
@@ -190,6 +200,7 @@ private int GetPriceFor(float goodTradeValue, TradeTownState town)
 // Eremite.Services.EffectsService.GetConstructionRate
 public float GetConstructionRate()
 {
+	//return Mathf.Clamp(this.Effects.constructionSpeed + this.MetaPerks.constructionSpeedBonusRate, this.PerksConfig.minConstructionSpeedRate, this.PerksConfig.maxConstructionSpeedRate);
 	return Mathf.Clamp(this.Effects.constructionSpeed + this.MetaPerks.constructionSpeedBonusRate, this.PerksConfig.minConstructionSpeedRate, this.PerksConfig.maxConstructionSpeedRate) * 2f;
 }
 ```
@@ -203,35 +214,41 @@ public float GetConstructionRate()
 public void BlockDangerousGladesInfo(string owner)
 {
 	this.Effects.dangerousGladeInfoBlocksOwners.Add(owner);
-	this.DangerousGladeInfo.Value = (this.Effects.dangerousGladeInfoBlocksOwners.Count == 0 || true);
+	//this.DangerousGladeInfo.Value = (this.Effects.dangerousGladeInfoBlocksOwners.Count == 0);
+	this.DangerousGladeInfo.Value = true;
 }
 
 // Eremite.Services.EffectsService.RemoveDangerousGladeInfoBlock
 public void RemoveDangerousGladeInfoBlock(string owner)
 {
 	this.Effects.dangerousGladeInfoBlocksOwners.Remove(owner);
-	this.DangerousGladeInfo.Value = (this.Effects.dangerousGladeInfoBlocksOwners.Count == 0 || true);
+	//this.DangerousGladeInfo.Value = (this.Effects.dangerousGladeInfoBlocksOwners.Count == 0);
+	this.DangerousGladeInfo.Value = true;
 }
 
 // Eremite.Services.EffectsService.GrantGladeInfo
 public void GrantGladeInfo(string owner)
 {
 	this.Effects.gladeInfoOwners.Add(owner);
-	this.GladeInfo.Value = (this.Effects.gladeInfoOwners.Count > 0 || true);
+	//this.GladeInfo.Value = (this.Effects.gladeInfoOwners.Count > 0);
+	this.GladeInfo.Value = true;
 }
 
-// Eremite.Services.EffectsService.Remove
+// Eremite.Services.EffectsService.RemoveGladeInfo
 public void RemoveGladeInfo(string owner)
 {
 	this.Effects.gladeInfoOwners.Remove(owner);
-	this.GladeInfo.Value = (this.Effects.gladeInfoOwners.Count > 0 || true);
+	//this.GladeInfo.Value = (this.Effects.gladeInfoOwners.Count > 0);
+	this.GladeInfo.Value = true;
 }
 
 // Eremite.Services.EffectsService.PrepareInitialValues
 private void PrepareInitialValues()
 {
-	this.GladeInfo.Value = (this.Effects.gladeInfoOwners.Count > 0 || true);  // mod this line
-	this.DangerousGladeInfo.Value = (this.Effects.dangerousGladeInfoBlocksOwners.Count == 0 || true);  // mod this line
+	//this.GladeInfo.Value = (this.Effects.gladeInfoOwners.Count > 0);
+	this.GladeInfo.Value = true;
+	//this.DangerousGladeInfo.Value = (this.Effects.dangerousGladeInfoBlocksOwners.Count == 0);
+	this.DangerousGladeInfo.Value = true;
 	this.IsHearthSacrificeBlocked.Value = (this.Effects.hearthSacrificeBlockOwners.Count > 0);
 	this.IsVillagerDeathEffectBlocked.Value = (this.Effects.villagerDeathEffectBlockOwners.Count > 0);
 }
@@ -248,10 +265,12 @@ private void SetUpState()
 	this.BuildingState.placed = true;
 	this.BuildingState.placedTime = GameMB.GameTimeService.Time;
 	this.BuildingState.unscaledPlacedTime = GameMB.GameTimeService.UnscaledTime;
+	// insert start
 	if (this.BuildingModel.category == MB.Settings.GetBuilding("Path").category)
 	{
 		this.BuildingState.constructionPriority = Math.Clamp(this.BuildingState.constructionPriority - 2, -5, 5);
 	}
+	// insert end
 	Building.lastRotation = this.BuildingState.rotation;
 }
 ```
@@ -266,6 +285,7 @@ private void SetUpState()
 // Eremite.Services.EffectsService.GetProduction
 public Good GetProduction(Building building, Good baseProduction, RecipeModel recipe, bool isExtra = false)
 {
+	//return this.productionCalculator.GetResult(building, baseProduction, recipe, isExtra);
 	return this.productionCalculator.GetResult(building, baseProduction, recipe, isExtra) * 10;
 }
 ```
@@ -278,6 +298,7 @@ public Good GetProduction(Building building, Good baseProduction, RecipeModel re
 // Eremite.Services.EffectsService.GetProductionRate
 public float GetProductionRate(Building building, Actor actor, RecipeModel recipe)
 {
+	//return Mathf.Clamp(this.GetBuildingRawProductionRate(building.BuildingModel, recipe) + this.GetInternalProductionRate(building) + this.GetActorProductionRate(actor), this.PerksConfig.minProductionSpeed, this.PerksConfig.maxProductionSpeed);
 	return Mathf.Clamp(this.GetBuildingRawProductionRate(building.BuildingModel, recipe) + this.GetInternalProductionRate(building) + this.GetActorProductionRate(actor), this.PerksConfig.minProductionSpeed, this.PerksConfig.maxProductionSpeed) * 2f;
 }
 ```
@@ -290,6 +311,7 @@ public float GetProductionRate(Building building, Actor actor, RecipeModel recip
 // Eremite.Buildings.BuildingStorage.GetFullCapacity
 private int GetFullCapacity(int baseCapacity)
 {
+	//return Mathf.Max(1, baseCapacity + GameMB.EffectsService.GetBuildingStorageCapacity(this.building.ModelName));
 	return Mathf.Max(1, baseCapacity + GameMB.EffectsService.GetBuildingStorageCapacity(this.building.ModelName)) * 5;
 }
 ```
@@ -305,16 +327,19 @@ public void SetUp(RainCatcherModel model, RainCatcherState state)
 {
 	this.model = model;
 	this.state = state;
+	// insert start
 	if (this.model.baseTankCapacity <= 100)
 	{
 		this.model.baseTankCapacity *= 10;
 	}
+	// insert end
 	base.SetUpBuilding();
 }
 
 // Eremite.Buildings.Extractor.GetTankCapacity
 public int GetTankCapacity()
 {
+	//return Mathf.Max(0, this.model.baseTankCapacity + this.state.bonusTank);
 	return Mathf.Max(0, this.model.baseTankCapacity + this.state.bonusTank) * 10;
 }
 ```
@@ -329,6 +354,7 @@ public int GetGlobalLimitFor(string goodName)
 {
 	if (!this.Limits.ContainsKey(goodName))
 	{
+		//return 0;
 		return 500;
 	}
 	return this.Limits[goodName];
@@ -345,6 +371,7 @@ public void SetUp(WorkshopModel model, WorkshopState state)
 {
 	this.model = model;
 	this.state = state;
+	// insert start
 	foreach (WorkshopRecipeState workshopRecipeState in state.recipes)
 	{
 		int globalLimit = GameMB.WorkshopsService.GetGlobalLimitFor(workshopRecipeState.productName);
@@ -361,6 +388,7 @@ public void SetUp(WorkshopModel model, WorkshopState state)
 			}
 		}
 	}
+	// insert end
 	base.SetUpBuilding();
 	this.ProductionStorage.SetUp(this, state.productionStorage, model.maxStorage);
 	this.ingredientsStorage.SetUp(this, state.ingredientsStorage, new Func<int, GoodRequest>(this.GetBestGoodToObtain));
@@ -370,6 +398,7 @@ public void SetUp(WorkshopModel model, WorkshopState state)
 // Eremite.Buildings.Workshop.ChangeLimitFor
 public void ChangeLimitFor(WorkshopRecipeState recipe, int amount, bool isLocalChange)
 {
+	// insert start
 	if (!isLocalChange && amount > 0)
 	{
 		int level = this.GetRecipeModel(recipe).grade.level;
@@ -382,12 +411,11 @@ public void ChangeLimitFor(WorkshopRecipeState recipe, int amount, bool isLocalC
 			amount = Math.Max(1, (int)((float)amount * 0.6f));
 		}
 	}
+	// insert end
 	recipe.limit = amount;
 	recipe.isLimitLocal = isLocalChange;
 }
 ```
-
-
 
 ## 3. Logistics
 
@@ -399,6 +427,7 @@ public void ChangeLimitFor(WorkshopRecipeState recipe, int amount, bool isLocalC
 // Eremite.Services.EffectsService.GetActorCapacity
 public int GetActorCapacity(Actor actor)
 {
+	//return Mathf.Max(1, actor.GetBaseCapacity() + this.Effects.globalBonusCapacity + this.MetaPerks.globalCapacityBonus + this.GetProfessionsBonusCapacity(actor.Profession) + this.GetWorkplaceBonusCapacity(actor));
 	return Mathf.Max(1, actor.GetBaseCapacity() + this.Effects.globalBonusCapacity + this.MetaPerks.globalCapacityBonus + this.GetProfessionsBonusCapacity(actor.Profession) + this.GetWorkplaceBonusCapacity(actor)) * 5;
 }
 ```
@@ -413,12 +442,15 @@ public int GetActorCapacity(Actor actor)
 // Eremite.Services.ReputationRewardsService.RewardPicked
 public void RewardPicked(BuildingModel building)
 {
+	// insert start
 	foreach (ReputationReward reputationReward in this.GetCurrentPicks())
 	{
 		Serviceable.GameContentService.Unlock(Serviceable.Settings.GetBuilding(reputationReward.building));
 	}
+	// insert end
 	this.SendPickAnalytics(building);
 	this.SetRewardAsPicked();
+	Serviceable.GameContentService.Unlock(building);
 	this.UpdateWaitingRewards();
 	if (this.RewardsToCollect.Value > 0)
 	{
@@ -434,6 +466,7 @@ private void SendPickAnalytics(BuildingModel building)
 	{
 		return;
 	}
+	//Serviceable.GameAnalyticsService.Buildings.SendReputationRewardPick(this.State.currentPick.options, building.Name);
 	Serviceable.GameAnalyticsService.Buildings.SendReputationRewardPick(this.State.currentPick.options, "only children make choices, adults want them all!");
 }
 ```
@@ -447,7 +480,10 @@ private void SendPickAnalytics(BuildingModel building)
 // return the remaining cornerstones to the front of pick queue, if applicable
 public void Pick(EffectModel reward)
 {
-	bool assertions = DebugModes.Assertions;
+	if (DebugModes.Assertions)
+	{
+		Assert.IsNotNull<RewardPickState>(this.GetCurrentPick());
+	}
 	RewardPickState currentPick = this.GetCurrentPick();
 	Log.Info(string.Format("[Cor] Set last date pick: {0} {1} {2}", currentPick.date.year, currentPick.date.season, currentPick.date.quarter), null);
 	if (reward != null)
@@ -462,11 +498,13 @@ public void Pick(EffectModel reward)
 	if (reward != null)
 	{
 		reward.Apply(EffectContextType.None, null, 0);
+		// insert start
 		currentPick.options.Remove(reward.Name);
 		if (currentPick.options.Count > 0)
 		{
 			this.Picks.Insert(0, currentPick);
 		}
+		// insert end
 	}
 	if (reward == null)
 	{
@@ -488,6 +526,7 @@ private void OnRewardPicked(EffectModel reward)
 		GameMB.CalendarService.Quarter
 	}), null);
 	GameMB.CornerstonesService.Pick(reward);
+	// insert start
 	if (GameMB.CornerstonesService.GetCurrentPick() != null)
 	{
 		this.SetUpSlots();
@@ -497,10 +536,10 @@ private void OnRewardPicked(EffectModel reward)
 		this.SetUpDialogue();
 		return;
 	}
+	// insert end
 	this.Hide();
 }
 ```
-
 
 ## 5. Meta progression
 
@@ -512,16 +551,20 @@ private void OnRewardPicked(EffectModel reward)
 // Eremite.Services.IronmanService.Pick
 public void Pick(CapitalUpgradeModel model)
 {
+	Assert.IsTrue(this.CanAfford(model));
 	if (this.IsCore(model))
 	{
 		this.BuyCore(model);
 		return;
 	}
 	this.PayForUpgrade(model);
+	// insert start
 	foreach (IronmanPickOption ironmanPickOption in this.State.currentPick.options)
 	{
 		this.Unlock(Serviceable.Settings.GetCapitalUpgrade(ironmanPickOption.model));
 	}
+	// insert end
+	this.Unlock(model);
 	this.SetAsSeen();
 	this.MarkAsPicked();
 	if (!this.HasReachedMaxPicks())
@@ -542,7 +585,8 @@ public void Pick(CapitalUpgradeModel model)
 // Eremite.Services.Meta.CaravanGenerator.GetVillagersAmount
 private int GetVillagersAmount(System.Random rng)
 {
-	return Mathf.Max(Serviceable.Settings.gameplayRaces, this.Config.embarkVillagersAmount.Random(rng) + this.cycleEffects.bonusEmbarkVillagers) * 4;
+	//return Mathf.Max(Serviceable.Settings.gameplayRaces, this.Config.embarkVillagersAmount.Random(rng) + Serviceable.MetaStateService.Perks.bonusVillagers + this.cycleEffects.bonusEmbarkVillagers);
+	return Mathf.Max(Serviceable.Settings.gameplayRaces, this.Config.embarkVillagersAmount.Random(rng) + Serviceable.MetaStateService.Perks.bonusVillagers + this.cycleEffects.bonusEmbarkVillagers) * 4;
 }
 ```
 
@@ -554,10 +598,9 @@ private int GetVillagersAmount(System.Random rng)
 // Eremite.Services.Meta.CaravanGenerator.GenerateGoods
 private List<Good> GenerateGoods()
 {
-	List<Good> list = (from g in (from g in this.Config.caravanGoodsAlwaysIncluded
-	select g.ToGood()).Concat(this.GetMetaEmbarkGoods()).Unify().Select(new Func<Good, Good>(this.MultiplyByEmbarkFactor)).Concat(this.GetCycleEmbarkGoods()).Unify()
-	orderby Serviceable.Settings.GetGood(g.name).category.order, Serviceable.Settings.GetGood(g.name).order descending
-	select g).ToList<Good>();
+	//return (from g in (from g in this.Config.caravanGoodsAlwaysIncluded select g.ToGood()).Concat(this.GetMetaEmbarkGoods()).Unify().Select(new Func<Good, Good>(this.MultiplyByEmbarkFactor)).Concat(this.GetCycleEmbarkGoods()).Unify() orderby Serviceable.Settings.GetGood(g.name).category.order, Serviceable.Settings.GetGood(g.name).order descending select g).ToList<Good>();
+	// insert start
+	List<Good> list = (from g in (from g in this.Config.caravanGoodsAlwaysIncluded select g.ToGood()).Concat(this.GetMetaEmbarkGoods()).Unify().Select(new Func<Good, Good>(this.MultiplyByEmbarkFactor)).Concat(this.GetCycleEmbarkGoods()).Unify() orderby Serviceable.Settings.GetGood(g.name).category.order, Serviceable.Settings.GetGood(g.name).order descending select g).ToList<Good>();
 	for (int i = 0; i < list.Count; i++)
 	{
 		Good value = new Good(list[i].name, list[i].amount * 10);
@@ -566,21 +609,22 @@ private List<Good> GenerateGoods()
 	list.Add(new Good("[Valuable] Amber", 200));
 	list.Add(new Good("[Metal] Crystalized Dew", 300));
 	return list;
+	// insert end
 }
 ```
 
 ### 6.3. Embarkation points
 
-<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying base embarkation points for every caravan, 200 in the below example. Note the diminishing returns with high values, as the total count of embarkation bonus to apply for a caravan is limited.
+<b><span style="color:#4040ff">SYNOPSIS: </span></b> Modifying base embarkation points for every caravan, 100 in the below example. Note the diminishing returns with high values, as the total count of embarkation bonus to apply for a caravan is limited.
 
 ```c#
 // Eremite.View.Menu.Pick.BuildingsPickScreen.GetBasePreparationPoints
 private int GetBasePreparationPoints()
 {
-	return Mathf.Max(0, MB.MetaPerksService.GetBasePreparationPoints() + WorldMB.WorldMapService.GetMinDifficultyFor(this.field).preparationPointsPenalty) + 200;
+	//return Mathf.Max(0, MB.MetaPerksService.GetBasePreparationPoints() + WorldMB.WorldMapService.GetMinDifficultyFor(this.field).preparationPointsPenalty);
+	return Mathf.Max(0, MB.MetaPerksService.GetBasePreparationPoints() + WorldMB.WorldMapService.GetMinDifficultyFor(this.field).preparationPointsPenalty) + 100;
 }
 ```
-
 
 ### 6.4. Always-unlocked blueprints
 
@@ -590,60 +634,73 @@ private int GetBasePreparationPoints()
 // Eremite.Services.GameContentService.EnsureBuildings
 private void EnsureBuildings()
 {
-	if (this.State.buildings.Count == 0)
+	if (this.State.buildings.Count > 0)
 	{
-		this.State.essentialBuildings = this.GetEssentialBuildings();
-		this.State.buildings = (from b in (from b in Serviceable.Settings.Buildings
-		where b.canBePicked || this.IsEssential(b)
-		where (this.IsEssential(b) && Serviceable.MetaStateService.Content.buildings.Contains(b.Name)) || Serviceable.MetaStateService.GameConditions.embarkBuildings.Any((string p) => p == b.Name)
-		select b).Concat(this.GetOptionalBuildings()).Distinct<BuildingModel>()
-		select b.Name).ToList<string>();
+		return;
 	}
+	this.State.essentialBuildings = this.GetEssentialBuildings();
+	this.State.buildings = (from b in (from b in Serviceable.Settings.Buildings
+	where b.canBePicked || this.IsEssential(b)
+	where (this.IsEssential(b) && Serviceable.MetaStateService.Content.buildings.Contains(b.Name)) || Serviceable.MetaStateService.GameConditions.embarkBuildings.Any((string p) => p == b.Name)
+	select b).Concat(this.GetOptionalBuildings()).Distinct<BuildingModel>()
+	select b.Name).ToList<string>();
+	// insert start
 	List<string> list = new List<string>();
+	// gathering
+	list.Add("Advanced Rain Catcher");
+	list.Add("Clay Pit Workshop");
+	list.Add("Fishing Hut");
 	list.Add("Forager's Camp");
 	list.Add("Herbalist's Camp");
 	list.Add("Trapper's Camp");
-	list.Add("SmallFarm");
-	list.Add("Plantation");
-	list.Add("Clay Pit Workshop");
+	// food prod
+	list.Add("Flawless Brewery");
+	list.Add("Flawless Cellar");
+	list.Add("Flawless Rain Mill");
 	list.Add("Greenhouse Workshop");
-	list.Add("Herb Garden");
+	list.Add("Grove");
+	list.Add("Hallowed Herb Garden");
 	list.Add("Hallowed SmallFarm");
-	list.Add("Hallowed Herb Garden");
+	list.Add("Herb Garden");
 	list.Add("Homestead");
-	list.Add("Hallowed Herb Garden");
+	list.Add("Plantation");
+	list.Add("SmallFarm");
+	// house
 	list.Add("Beaver House");
 	list.Add("Fox House");
+	list.Add("Frog House");
 	list.Add("Harpy House");
 	list.Add("Human House");
 	list.Add("Lizard House");
 	list.Add("Purged Beaver House");
 	list.Add("Purged Fox House");
+	list.Add("Purged Frog House");
 	list.Add("Purged Harpy House");
 	list.Add("Purged Human House");
 	list.Add("Purged Lizard House");
-	list.Add("Flawless Brewery");
-	list.Add("Flawless Cellar");
+	// industry
+	list.Add("Finesmith");
 	list.Add("Flawless Cooperage");
 	list.Add("Flawless Druid");
 	list.Add("Flawless Leatherworks");
-	list.Add("Flawless Rain Mill");
 	list.Add("Flawless Smelter");
-	list.Add("Finesmith");
 	list.Add("Rainpunk Foundry");
+	// city building
 	list.Add("Altar");
 	list.Add("Bath House");
 	list.Add("Clan Hall");
 	list.Add("Explorers Lodge");
 	list.Add("Forum");
 	list.Add("Guild House");
-	list.Add("Market");
+	list.Add("Holy Guild House");
 	list.Add("Holy Market");
+	list.Add("Holy Temple");
+	list.Add("Market");
 	list.Add("Monastery");
+	list.Add("Port");
 	list.Add("Tavern");
 	list.Add("Tea Doctor");
 	list.Add("Temple");
-	list.Add("Holy Temple");
 	HashSet<string> hashSet = new HashSet<string>(this.State.buildings);
 	foreach (string text in list)
 	{
@@ -655,13 +712,15 @@ private void EnsureBuildings()
 		hashSet.Add(text);
 	}
 	this.State.buildings = hashSet.ToList<string>();
+	// insert end
 }
 
 // Eremite.Services.ConstructionService.ShouldShowInShop
 // in addition, some needs to be 'force enabled' in building menu
 public bool ShouldShowInShop(BuildingModel model)
 {
-	return model.isInShop || model.Name == "Homestead" || model.Name == "Finesmith" || model.Name == "Rainpunk Foundry" || DebugModes.Construction;
+	//return model.isInShop || DebugModes.Construction;
+	return model.isInShop || DebugModes.Construction || model.Name == "Homestead" || model.Name == "Finesmith" || model.Name == "Rainpunk Foundry";
 }
 ```
 
@@ -678,10 +737,12 @@ public void GenerateNewState()
 	this.state.worldEvents = worldGenerationResult.events;
 	this.state.modifiers = worldGenerationResult.modifiers;
 	this.state.seals = worldGenerationResult.seals;
+	// insert start
 	if (!this.CycleEffects.bonusEmbarkEffects.Contains("Hauling Cart in All Warehouses"))
 	{
 		this.CycleEffects.bonusEmbarkEffects.Add("Hauling Cart in All Warehouses");
 	}
+	// insert end
 }
 ```
 
@@ -690,29 +751,40 @@ public void GenerateNewState()
 <b><span style="color:#4040ff">SYNOPSIS: </span></b> Revealing all races at the caravan choice.
 
 ```c#
-// Eremite.View.Menu.Pick.CaravanPickSlot
-
+// Eremite.View.Menu.Pick.CaravanPickSlot.SetUpRaces
+private void SetUpRaces()
 {
-	int num = 0;
-	using (IEnumerator<string> enumerator = this.state.races.GetEnumerator())
+	//int num = 0;
+	//using (IEnumerator<RaceModel> enumerator = this.GetRevealedRaces().GetEnumerator())
+	//{
+	//	while (enumerator.MoveNext())
+	//	{
+	//		RaceModel race = enumerator.Current;
+	//		base.GetOrCreate<RaceSlot>(this.raceSlots, num++).SetUp(race, this.GetAmountOf(race));
+	//	}
+	//	goto IL_5F;
+	//}
+	//IL_49:
+	//base.GetOrCreate<RaceSlot>(this.raceSlots, num).SetUpUnknown();
+	//num++;
+	//IL_5F:
+	//if (num >= MB.Settings.gameplayRaces)
+	//{
+	//	base.HideRest<RaceSlot>(this.raceSlots, num);
+	//	return;
+	//}
+	//goto IL_49;
+	// insert start
+	for (int i = 0; i < this.state.races.Count; i++)
 	{
-		while (enumerator.MoveNext())
-		{
-			string raceName = enumerator.Current;
-			RaceModel race = MB.Settings.GetRace(raceName);
-			base.GetOrCreate<RaceSlot>(this.raceSlots, num++).SetUp(race, this.GetAmountOf(race));
-		}
-		goto IL_73;
+		RaceModel race = MB.Settings.GetRace(this.state.races[i]);
+		base.GetOrCreate<RaceSlot>(this.raceSlots, i).SetUp(race, this.GetAmountOf(race));
 	}
-	IL_5D:
-	base.GetOrCreate<RaceSlot>(this.raceSlots, num).SetUpUnknown();
-	num++;
-	IL_73:
-	if (num >= MB.Settings.gameplayRaces)
+	for (int j = this.state.races.Count; j < MB.Settings.gameplayRaces; j++)
 	{
-		base.HideRest<RaceSlot>(this.raceSlots, num);
-		return;
+		base.GetOrCreate<RaceSlot>(this.raceSlots, j).SetUpUnknown();
 	}
-	goto IL_5D;
+	base.HideRest<RaceSlot>(this.raceSlots, MB.Settings.gameplayRaces);
+	// insert end
 }
 ```
